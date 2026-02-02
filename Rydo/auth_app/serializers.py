@@ -5,6 +5,8 @@ from .models import User
 from .forms import SignupForm
 
 
+# -------------------------------------------------------------------------- signup
+
 class SignupSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True)
 
