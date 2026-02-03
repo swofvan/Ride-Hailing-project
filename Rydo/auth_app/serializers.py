@@ -1,8 +1,8 @@
 # auth_app/serializers.py
 
 from rest_framework import serializers
-from .models import User
-from .forms import SignupForm
+from .models import User, DriverRequest
+from .forms import SignupForm, DriverForm
 
 
 # -------------------------------------------------------------------------- signup
@@ -12,22 +12,14 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['name', 'email', 'password', 'confirm_password', 'role']
+        fields = ['name', 'email', 'phone', 'password', 'confirm_password']
+        extra_kwargs = {'password': {'write_only': True}}
 
-    def validate(self, data):
-        form = SignupForm(data)
-        if not form.is_valid():
-            raise serializers.ValidationError(form.errors)
-        return data
+# --------------------------------------------------------------------------  Diver signup
 
-    def create(self, validated_data):
-        validated_data.pop('confirm_password')
+class DriverSerializer(serializers.ModelSerializer):
 
-        user = User.objects.create(
-            name=validated_data['name'],
-            email=validated_data['email'],
-            role=validated_data['role']
-        )
-        user.set_password(validated_data['password']) 
-        user.save()
-        return user
+    class Meta:
+        model = DriverRequest
+        fields = '__all__'
+        read_only_fields = ['status', 'user']
