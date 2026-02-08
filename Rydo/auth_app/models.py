@@ -4,6 +4,7 @@ from django.core.validators import validate_email
 from django.conf import settings
 
 # ------------------------------------------------------------------------------- User model
+
 class User(AbstractUser):
     
     username = None                 # Remove username field
@@ -20,10 +21,10 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
+
 # ------------------------------------------------------------------------------- driver model
 
-
-class DriverRequest(models.Model):
+class Driver(models.Model):
 
     STATUS_CHOICES = (
         ('pending', 'Pending'),

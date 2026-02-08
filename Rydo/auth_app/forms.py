@@ -1,7 +1,7 @@
 # auth_app/forms.py
 
 from django import forms
-from .models import User
+from .models import User, Driver
 
 # -------------------------------------------------------------------------   Signup Form
 
@@ -32,13 +32,11 @@ class SignupForm(forms.ModelForm):
 
 # -------------------------------------------------------------------------   Driver Form
 
-from django import forms
-from .models import DriverRequest
 
 class DriverForm(forms.ModelForm):
 
     class Meta:
-        model = DriverRequest
+        model = Driver
         fields = ['name', 'email', 'phone', 'vehicle_number', 'licence_number']
 
     def clean_vehicle_number(self):

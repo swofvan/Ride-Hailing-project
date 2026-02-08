@@ -1,7 +1,7 @@
 # auth_app/serializers.py
 
 from rest_framework import serializers
-from .models import User, DriverRequest
+from .models import User, Driver
 from .forms import SignupForm, DriverForm
 
 
@@ -20,6 +20,6 @@ class SignupSerializer(serializers.ModelSerializer):
 class DriverSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = DriverRequest
+        model = Driver
         fields = '__all__'
         read_only_fields = ['status', 'user']

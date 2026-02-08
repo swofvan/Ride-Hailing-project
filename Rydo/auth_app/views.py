@@ -1,16 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-# auth_app/views.py
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 
-from .models import DriverRequest
+from .models import Driver
 from .serializers import DriverSerializer
-from .forms import SignupForm, DriverForm   
+from .forms import SignupForm, DriverForm
+
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 #  ------------------------------------------------------------------------   signup
@@ -55,14 +56,19 @@ def login(request):
             {"error" : "Invalid email or password"},
             status=status.HTTP_401_UNAUTHORIZED
         )
+    
+    
+    refresh = RefreshToken.for_user(user)
 
     return Response(
         {
             "message": "Login successful",
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
             "user": {
                 "id": user.id,
                 "name": user.name,
-                "email": user.email
+                "email": user.email,
             }
         },
         status=status.HTTP_200_OK
@@ -76,8 +82,7 @@ def login(request):
 @permission_classes([IsAuthenticated])
 def request_driver(request):
 
-    # Check if user already requested
-    if DriverRequest.objects.filter(user=request.user).exists():
+    if Driver.objects.filter(user=request.user).exists():
         return Response(
             {"message": "You have already submitted a driver request"},
             status=status.HTTP_400_BAD_REQUEST
