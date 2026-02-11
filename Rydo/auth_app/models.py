@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.core.validators import validate_email
+from django.core.validators import validate_email, RegexValidator
 
 
 # # ------------------------------------------------------------------------------- User model
@@ -99,13 +99,6 @@ from django.core.validators import validate_email
 #     def __str__(self):
 #         return self.email
     
-    
-# # ------------------------------------------------------------------------------- Normal User model
-
-
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator, validate_email
 
 # ------------------------------------------------------------------------------- User model
 

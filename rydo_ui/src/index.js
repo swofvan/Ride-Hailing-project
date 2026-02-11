@@ -7,15 +7,24 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 
+
+import { Provider } from 'react-redux';
+import store from './components/store/appStore';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>
 
-  <React.StrictMode>
-        <RouterProvider router = {router } />
-  </React.StrictMode>
+  // <React.StrictMode>
+  //       <RouterProvider router = {router } />
+  // </React.StrictMode>
+
+    <Provider store={store}>
+      <RouterProvider router={router}/>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
