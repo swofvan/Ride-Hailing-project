@@ -75,21 +75,20 @@ function DriverSignUp() {
 
             if (error.response && error.response.data) {
 
-            // If backend returns validation errors
-            if (typeof error.response.data === "object") {
-            const errors = Object.values(error.response.data);
-            setErrorMessage(errors.join(" "));
-            }
-            
-            else {
-            setErrorMessage(error.response.data);
-            }
+              if (typeof error.response.data === "object") {
+              const errors = Object.values(error.response.data);
+              setErrorMessage(errors.join(" "));
+              }
+              
+              else {
+              setErrorMessage(error.response.data);
+              }
 
-        }
+            }
         
-        else {
-            setErrorMessage("Failed to connect to server");
-        }
+            else {
+                setErrorMessage("Failed to connect to server");
+            }
         });
 }
 
@@ -98,7 +97,7 @@ function DriverSignUp() {
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 
         <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign Up as Driver</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign Up as Driver</h1>
         </div>
 
         <form className="space-y-6">
@@ -146,6 +145,34 @@ function DriverSignUp() {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Vehicle Number
+            </label>
+            <input
+              type="text"
+              id="vehicleNumber"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+              placeholder="KL01AB1234"
+              value={vehicleNumber}
+              onChange={(e) => setVehicleNumber(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              License Number
+            </label>
+            <input
+              type="text"
+              id="licenseNumber"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+              placeholder="DL123456789"
+              value={licenseNumber}
+              onChange={(e) => setLicenseNumber(e.target.value)}
             />
           </div>
 

@@ -71,21 +71,20 @@ function UserSignUp() {
 
         if (error.response && error.response.data) {
 
-        // If backend returns validation errors
-        if (typeof error.response.data === "object") {
-          const errors = Object.values(error.response.data);
-          setErrorMessage(errors.join(" "));
-        }
-        
-        else {
-          setErrorMessage(error.response.data);
-        }
+          if (typeof error.response.data === "object") {
+            const errors = Object.values(error.response.data);
+            setErrorMessage(errors.join(" "));
+          }
+          
+          else {
+            setErrorMessage(error.response.data);
+          }
 
-      }
+        }
       
-      else {
-        setErrorMessage("Failed to connect to server");
-      }
+        else {
+          setErrorMessage("Failed to connect to server");
+        }
       });
 }
 
@@ -94,7 +93,7 @@ function UserSignUp() {
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 
         <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign Up</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign Up</h1>
         </div>
 
         <form className="space-y-6">

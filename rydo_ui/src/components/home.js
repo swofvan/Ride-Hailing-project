@@ -1,77 +1,18 @@
 import homeimg from '../images/rydo_homeimg.png'
+import homeimg2 from '../images/rydo_homeimg2.png'
 import phone from '../images/mobile.png'
-
-import Footer from './footer';
-
-// function Home() {
-//     return (
-//         <div>
-//             <div className="max mx-auto">
-
-//                 <div className="grid">
-                    
-//                     <img src={homeimg} alt="Rydo Home Image" className="w-full object-cover" />
-                    
-//                     <div className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 text-left">
-//                         <h3 className="text-yellow-400 text-2xl">Rydo Most Trusted Cab</h3>
-//                         <h1 className="text-6xl font-bold text-white mb-4 leading-tight">Enjoy Your<br/>Comfortable Trip</h1>
-//                         <p className="text-lg text-white">Your reliable ride at your fingertips</p>
-//                     </div>
-
-//                     <div className="absolute top-1/2 right-1/4 transform translate-x-1/2 -translate-y-1/2">
-//                         <img src={phone} alt="Rydo Phone Image" className="w-130 mt-30 hover:scale-105 transition-transform duration-500"/>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Home;
 
 function Home() {
   return (
     <div className="w-full">
-
-      {/* <div 
-        className="text-white py-20 px-4 min-h-screen"
-        style={{
-            backgroundImage: `url(${homeimg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-        }}
-        >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            
-            <div className="text-left" style={{marginTop:'150px'}}>
-              <h1 className="text-5xl font-bold mb-4 leading-tight">
-                Enjoy Your<br/>Comfortable Trip
-              </h1>
-              <p className="text-gray-300 mb-6">
-                Safe, reliable, and affordable rides at your fingertips
-              </p>
-              <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600">
-                Book Now
-              </button>
-            </div>
-            <div className="absolute top-1/2 right-1/4 transform translate-x-1/2 -translate-y-1/2">
-              <img src={phone} alt="Rydo Phone Image" className="w-130 mt-30 hover:scale-105 transition-transform duration-500"/>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
         <div
             className="min-h-screen bg-cover bg-center bg-no-repeat text-white px-4"
-            style={{ backgroundImage: `url(${homeimg})` }}
+            style={{ backgroundImage: `url(${homeimg2})` }}
             >
             <div className="max-w-6xl mx-auto min-h-screen flex items-center">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center w-full">
 
-                {/* LEFT CONTENT */}
                 <div className="text-center md:text-left">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                     Enjoy Your <br className="hidden md:block" />
@@ -82,12 +23,11 @@ function Home() {
                     Safe, reliable, and affordable rides at your fingertips
                     </p>
 
-                    <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition">
+                    <button className="bg-transparent text-white border border-white px-8 py-3 rounded-lg font-semibold hover:bg-transparent hover:text-black hover:bg-yellow-500 hover:border-yellow-500 transition">
                     Book Now
                     </button>
                 </div>
 
-                {/* RIGHT IMAGE */}
                 <div className="flex justify-center md:justify-end">
                     <img
                     src={phone}
