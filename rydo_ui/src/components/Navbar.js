@@ -13,7 +13,6 @@ function Navbar() {
             <img src={logo} alt="Rydo Logo" className="w-20" />
           </Link>
 
-          {/* Navigation Links */}
           <div className="flex h-full gap-4 ml-20">
             <NavLink
               to="/"
