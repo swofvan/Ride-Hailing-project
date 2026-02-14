@@ -9,8 +9,18 @@
 
 </head>
 <body>
-    {% include 'partials/admin_nav.html' %}
-    {% block 'content' %}
-    {% endblock %}
+
+    <div class="flex min-h-screen">
+        
+        <div class="w-64 bg-black">
+            {% include 'partials/admin_nav.html' %}
+        </div>
+        
+        <div class="flex-1 p-6">
+        {% block content %}
+        {% endblock %}
+        </div>
+
+    </div>
 </body>
 </html>

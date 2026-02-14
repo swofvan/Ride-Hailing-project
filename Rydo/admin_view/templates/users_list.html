@@ -5,14 +5,31 @@
         
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">User Management</h1>
-            <p class="text-gray-600">Manage all users in your system</p>
+        </div>
+
+        <div class="mb-6">
+            <form method="GET">
+                <div class="flex gap-2">
+                    <input type="text"
+                        name="search"
+                        placeholder="Search by name, email or phone"
+                        value= "{{ search }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-800"
+                        >
+                    <button type="submit"
+                        class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition"
+                        >
+                        Search
+                    </button>
+                </div>
+            </form>
         </div>
 
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
 
             <table class="w-full">
                 
-                <thead class="bg-blue-600 text-white">
+                <thead class="bg-gray-800 text-white">
                     <tr>
                         <th class="px-6 py-4 text-left text-sm font-semibold">ID</th>
                         <th class="px-6 py-4 text-left text-sm font-semibold">Name</th>
@@ -45,14 +62,23 @@
                         <td class="px-6 py-4 text-sm text-gray-600">{{ user.date_joined|date:"M d, Y" }}</td>
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center gap-2">
-
-                                <button class="px-3 py-1.5 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600 transition">
-                                    Disable
-                                </button>
                                 
-                                <button class="px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition">
+                                {% if user.is_active %}
+                                    <a href="{% url 'disable_user' user.id %}"
+                                        class="px-3 py-1.5 bg-gray-500 text-white text-sm font-medium rounded hover:bg-gray-600 transition">
+                                        Disable
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'enable_user' user.id %}"
+                                        class="px-3 py-1.5 bg-green-500 text-white text-sm font-medium rounded hover:bg-green-600 transition">
+                                        Enable
+                                    </a>
+                                {% endif %}
+                                
+                                <a href="{% url 'delete_user' user.id %}"
+                                    class="px-3 py-1.5 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition">
                                     Delete
-                                </button>
+                                </a>
                             </div>
                         </td>
                     </tr>
