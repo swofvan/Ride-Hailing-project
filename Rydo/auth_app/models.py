@@ -1,7 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_email, RegexValidator
 
+
+# ------------------------------------------------------------------------------- User model
 
 class User(AbstractUser):    # AbstractUser  allows you to customize the User model.
     username = None
@@ -21,7 +23,7 @@ class User(AbstractUser):    # AbstractUser  allows you to customize the User mo
     def __str__(self):
         return self.email
 
-# ------------------------------------------------------------------------------- User profile model
+# ------------------------------------------------------------------------------- Driver model
 
 class Driver(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE)

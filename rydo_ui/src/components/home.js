@@ -1,6 +1,9 @@
-import homeimg from '../images/rydo_homeimg.png'
 import homeimg2 from '../images/rydo_homeimg2.png'
 import phone from '../images/mobile.png'
+import cardriver from '../images/car_driver.jpeg'
+
+
+import { FaCar, FaCity, FaPlane, FaTags, FaHeadset, FaBolt, FaStar, FaUserTie, FaBroom } from "react-icons/fa";
 
 function Home() {
   return (
@@ -52,7 +55,7 @@ function Home() {
             {/* Service Card 1 */}
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 transition-colors duration-300">
               <div className="bg-gray-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">🚗</span>
+                <span className="text-2xl text-white"><FaCar /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Outstation Cab</h3>
               <p className="text-gray-600">
@@ -63,7 +66,7 @@ function Home() {
             {/* Service Card 2 */}
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 transition-colors duration-300">
               <div className="bg-gray-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">🏙️</span>
+                <span className="text-2xl text-white"><FaCity /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Local Cab</h3>
               <p className="text-gray-600">
@@ -74,7 +77,7 @@ function Home() {
             {/* Service Card 3 */}
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 transition-colors duration-300">
               <div className="bg-gray-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">✈️</span>
+                <span className="text-2xl text-white"><FaPlane /> </span>
               </div>
               <h3 className="text-xl font-bold mb-2">Airport Transfer</h3>
               <p className="text-gray-600">
@@ -92,7 +95,7 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <img
-                src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=500"
+                src={cardriver}
                 alt="Driver"
                 className="rounded-lg shadow-lg w-full"
               />
@@ -249,7 +252,7 @@ function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">💰</span>
+                <span className="text-2xl text-white"><FaTags /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Affordable Rates</h3>
               <p>Best prices in the market with transparent billing</p>
@@ -257,7 +260,7 @@ function Home() {
 
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">❓</span>
+                <span className="text-2xl text-white"> <FaHeadset/>  </span>
               </div>
               <h3 className="text-xl font-bold mb-2">24x7 Support</h3>
               <p>Round the clock customer support for your queries</p>
@@ -265,7 +268,7 @@ function Home() {
 
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">🚗</span>
+                <span className="text-2xl text-white"><FaBolt /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Quick Ride</h3>
               <p>Fast pickup and drop with experienced drivers</p>
@@ -273,7 +276,7 @@ function Home() {
 
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">⭐</span>
+                <span className="text-2xl text-white"><FaStar /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Top Condition</h3>
               <p>Well-maintained vehicles for a comfortable journey</p>
@@ -281,7 +284,7 @@ function Home() {
 
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">👤</span>
+                <span className="text-2xl text-white"><FaUserTie /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Expert Drivers</h3>
               <p>Licensed and professional drivers for your safety</p>
@@ -289,7 +292,7 @@ function Home() {
 
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-black w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl text-yellow-500">🌟</span>
+                <span className="text-2xl text-white"><FaBroom /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Cleanliness & Hygiene</h3>
               <p>Sanitized vehicles for your health and safety</p>
