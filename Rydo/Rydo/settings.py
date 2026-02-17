@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'auth_app',
     'admin_view',
+    'user_view',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -141,7 +142,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         'rest_framework.permissions.IsAuthenticated',
     ),
 }

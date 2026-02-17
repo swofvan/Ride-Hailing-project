@@ -1,15 +1,17 @@
 from django.shortcuts import render
 
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 
-
 from .models import User, Driver
 from .forms import UserSignupForm, DriverSignupForm
 from .serializers import UserSerializer, DriverSerializer
+
+
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 # ------------------------------------------------------------------------------- User signup
@@ -47,6 +49,32 @@ def driver_signup(request):
 
 # ------------------------------------------------------------------------   login
 
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def login(request):
+
+#     user = authenticate(
+#         username=request.data.get('email'),
+#         password=request.data.get('password')
+#     )
+
+#     if not user:
+#         return Response({"error": "Invalid email or password"}, status=401)
+    
+#     try:
+#         driver = Driver.objects.get(user=user)
+
+#         if driver.status != 'accepted':
+#             return Response(
+#                 {"error": "Driver account not approved by admin"},
+#                 status=403
+#             )
+
+#     except Driver.DoesNotExist:
+#         pass
+
+#     return Response({"message": "Login success"}, status=200)
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
@@ -71,4 +99,10 @@ def login(request):
     except Driver.DoesNotExist:
         pass
 
-    return Response({"message": "Login success"}, status=200)
+    refresh = RefreshToken.for_user(user)
+
+    return Response({
+        "message": "Login success",
+        "access": str(refresh.access_token),
+        "refresh": str(refresh),
+    }, status=200)

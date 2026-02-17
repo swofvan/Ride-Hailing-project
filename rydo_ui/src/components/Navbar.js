@@ -86,11 +86,20 @@ function Navbar() {
                   Drive
                 </NavLink>
 
+                <NavLink 
+                  to="/login" 
+                  className="block px-4 py-2 text-sm text-black hover:bg-gray-300 transition-colors cursor-pointer"
+                >
+                  Sign in
+                </NavLink>
+
               </div>
             </div>
           </div>
-          <NavLink className="flex items-center justify-center px-2 py-2 rounded-full text-gray-800 bg-white transition-all duration-300 hover:bg-transparent border-1 border-transparent hover:text-white hover:border-1 hover:border-white cursor-pointer">
-              <span className="text-[18px]"><FaUser /></span>
+          <NavLink
+            to={'/profile'}
+            className="flex items-center justify-center px-2 py-2 rounded-full text-gray-800 bg-white transition-all duration-300 hover:bg-transparent border-1 border-transparent hover:text-white hover:border-1 hover:border-white cursor-pointer">
+            <span className="text-[18px]"><FaUser /></span>
           </NavLink>
         </div>
       </div>

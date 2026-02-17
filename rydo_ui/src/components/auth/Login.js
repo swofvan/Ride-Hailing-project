@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/authSlice";
 
+import Navbar from "../Navbar";
 
 
 function Login() {
@@ -39,11 +39,25 @@ function Login() {
         password: password
     }
     
+    
     axios.post("http://127.0.0.1:8000/auth/login/", user)
         .then(response => 
         {
 
       setErrorMessage('');
+
+      console.log("LOGIN RESPONSE:", response.data);
+
+      const accessToken = response.data?.access;
+      const refreshToken = response.data?.refresh;
+
+      if (!accessToken || !refreshToken) {
+        setErrorMessage("Login response did not return tokens");
+        return;
+      }
+ 
+      localStorage.setItem("access", accessToken);
+      localStorage.setItem("refresh", refreshToken);
 
       dispatch(setUser({email:email}));
 
@@ -77,71 +91,74 @@ function Login() {
 }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+    <>
+      <Navbar/>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 
-        <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h1>
+          <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h1>
+          </div>
+
+          <form className="space-y-6">
+
+            <div className="text-red-500 text-sm">
+              {errorMessage}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+          
+            <button
+              type="button"
+              className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-700 transition duration-200 shadow-lg hover:shadow-xl"
+              onClick={loginuser}
+            >
+              Sign in
+            </button>
+          </form>
+
+          <div className="flex items-center my-6">
+            <div className="flex-1 border-t border-gray-300"></div>
+            <span className="px-4 text-sm text-gray-500">or</span>
+            <div className="flex-1 border-t border-gray-300"></div>
+          </div>
+
+          <p className="text-center text-sm text-gray-600 mt-6">
+            Don't have an account? &nbsp;
+            <Link to="/signup" className="text-gray-800 hover:text-blue-600 font-semibold">
+              Sign Up
+            </Link>
+          </p>
         </div>
-
-        <form className="space-y-6">
-
-          <div className="text-red-500 text-sm">
-            {errorMessage}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-         
-          <button
-            type="button"
-            className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-700 transition duration-200 shadow-lg hover:shadow-xl"
-            onClick={loginuser}
-          >
-            Sign in
-          </button>
-        </form>
-
-        <div className="flex items-center my-6">
-          <div className="flex-1 border-t border-gray-300"></div>
-          <span className="px-4 text-sm text-gray-500">or</span>
-          <div className="flex-1 border-t border-gray-300"></div>
-        </div>
-
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Don't have an account? &nbsp;
-          <Link to="/signup" className="text-gray-800 hover:text-blue-600 font-semibold">
-            Sign Up
-          </Link>
-        </p>
       </div>
-    </div>
+    </>
   );
 }
 
