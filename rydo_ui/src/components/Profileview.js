@@ -58,45 +58,41 @@ function UserProfile() {
 
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     
-                {/* Top Banner */}
+                    
                 <div className="bg-gray-800 h-32 sm:h-40"></div>
                 
-                {/* Content */}
-
-                
                 <div className="px-6 sm:px-8 py-8 -mt-16">
-                    {/* User Info Header */}
+                    
                     <div className="bg-white rounded-xl shadow-md p-6 mb-8">
                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">{userData.name}</h2>
                     <p className="text-gray-500">{userData.email}</p>
                     </div>
 
-                    {/* Details Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Mobile Number Card */}
-                    <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
-                        <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Phone Number</h3>
-                        <p className="text-xl text-gray-800 font-medium">{userData.phone}</p>
-                    </div>
+
+                        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                            <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Phone Number</h3>
+                            <p className="text-xl text-gray-800 font-medium">{userData.phone}</p>
+                        </div>
                 {userData. vehicle_number && (
-                    <>
-                    
-                        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
-                            <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Vehicle Number</h3>
-                            <p className="text-xl text-gray-800 font-medium">{userData.vehicle_number}</p>
-                        </div>
+                        <>
+                        
+                            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
+                                <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Vehicle Number</h3>
+                                <p className="text-xl text-gray-800 font-medium">{userData.vehicle_number}</p>
+                            </div>
 
-                        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
-                            <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">License Number</h3>
-                            <p className="text-xl text-gray-800 font-medium">{userData.license_number}</p>
-                        </div>
+                            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+                                <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">License Number</h3>
+                                <p className="text-xl text-gray-800 font-medium">{userData.license_number}</p>
+                            </div>
 
-                        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
-                            <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Account Status</h3>
-                            <p className="text-xl text-green-600 font-bold">{userData.status}</p>
-                        </div>
-                    
-                    </>
+                            <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+                                <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Account Status</h3>
+                                <p className="text-xl text-green-600 font-bold">{userData.status}</p>
+                            </div>
+                        
+                        </>
                 )}
 
                     </div>
