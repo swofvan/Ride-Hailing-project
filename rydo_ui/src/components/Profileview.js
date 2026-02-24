@@ -50,7 +50,7 @@ function UserProfile() {
         <div className="max-w-4xl mx-auto">
             
             <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Profile</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-2">Profile</h1>
             <p className="text-gray-600">Your account details</p>
             </div>
 
@@ -59,12 +59,12 @@ function UserProfile() {
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     
                     
-                <div className="bg-gray-800 h-32 sm:h-40"></div>
+                <div className="bg-zinc-900 h-32 sm:h-40"></div>
                 
                 <div className="px-6 sm:px-8 py-8 -mt-16">
                     
                     <div className="bg-white rounded-xl shadow-md p-6 mb-8">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1">{userData.name}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 mb-1">{userData.name}</h2>
                     <p className="text-gray-500">{userData.email}</p>
                     </div>
 
@@ -72,19 +72,19 @@ function UserProfile() {
 
                         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
                             <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Phone Number</h3>
-                            <p className="text-xl text-gray-800 font-medium">{userData.phone}</p>
+                            <p className="text-xl text-zinc-900 font-medium">{userData.phone}</p>
                         </div>
                 {userData. vehicle_number && (
                         <>
                         
                             <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
                                 <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Vehicle Number</h3>
-                                <p className="text-xl text-gray-800 font-medium">{userData.vehicle_number}</p>
+                                <p className="text-xl text-zinc-900 font-medium">{userData.vehicle_number}</p>
                             </div>
 
                             <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
                                 <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">License Number</h3>
-                                <p className="text-xl text-gray-800 font-medium">{userData.license_number}</p>
+                                <p className="text-xl text-zinc-900 font-medium">{userData.license_number}</p>
                             </div>
 
                             <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
@@ -98,7 +98,7 @@ function UserProfile() {
                     </div>
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                        <button className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
+                        <button className="flex-1 bg-zinc-900 hover:bg-black text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
                             Edit Profile
                         </button>
                         <button className="flex-1 bg-red-600 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200">

@@ -99,7 +99,7 @@ function DriverSignUp() {
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 
           <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign Up as Driver</h1>
+              <h1 className="text-3xl font-bold text-zinc-900 mb-2">Sign Up as Driver</h1>
           </div>
 
           <form className="space-y-6">
@@ -115,7 +115,7 @@ function DriverSignUp() {
               <input
                 type="text"
                 id="name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -129,7 +129,7 @@ function DriverSignUp() {
               <input
                 type="text"
                 id="phone"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="1234567890"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -143,7 +143,7 @@ function DriverSignUp() {
               <input
                 type="email"
                 id="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -157,7 +157,7 @@ function DriverSignUp() {
               <input
                 type="text"
                 id="vehicleNumber"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="KL01AB1234"
                 value={vehicleNumber}
                 onChange={(e) => setVehicleNumber(e.target.value)}
@@ -171,7 +171,7 @@ function DriverSignUp() {
               <input
                 type="text"
                 id="licenseNumber"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="DL123456789"
                 value={licenseNumber}
                 onChange={(e) => setLicenseNumber(e.target.value)}
@@ -185,7 +185,7 @@ function DriverSignUp() {
               <input
                 type="password"
                 id="password"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -199,7 +199,7 @@ function DriverSignUp() {
               <input
                 type="password"
                 id="confirmPassword"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-800 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
                 placeholder="••••••••"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -208,7 +208,7 @@ function DriverSignUp() {
 
           
             <button
-              className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-700 transition duration-200 shadow-lg hover:shadow-xl"
+              className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold hover:bg-black transition duration-200 shadow-lg hover:shadow-xl"
               onClick={registerDriver}
             >
               Sign Up
@@ -223,7 +223,7 @@ function DriverSignUp() {
 
           <p className="text-center text-sm text-gray-600 mt-6">
             Already have an account? &nbsp;
-            <Link to="/login" className="text-gray-800 hover:text-blue-600 font-semibold">
+            <Link to="/login" className="text-zinc-900 hover:text-blue-600 font-semibold">
               Sign In
             </Link>
           </p>

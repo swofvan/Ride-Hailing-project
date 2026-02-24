@@ -1,7 +1,7 @@
 function Footer() {
     {/* Footer */}
     return (
-        <div className="bg-gray-900 text-white py-12 px-4">
+        <div className="bg-zinc-900 text-white py-12 px-4">
             <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>

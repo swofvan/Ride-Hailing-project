@@ -48,13 +48,13 @@ function Home() {
       {/* Services div */}
       <div className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="text-3xl font-bold text-center mb-12 text-zinc-900">
             We Offer Best Taxi Service in Kerala
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Service Card 1 */}
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 transition-colors duration-300">
-              <div className="bg-gray-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <div className="bg-zinc-900 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl text-white"><FaCar /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Outstation Cab</h3>
@@ -65,7 +65,7 @@ function Home() {
 
             {/* Service Card 2 */}
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 transition-colors duration-300">
-              <div className="bg-gray-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <div className="bg-zinc-900 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl text-white"><FaCity /></span>
               </div>
               <h3 className="text-xl font-bold mb-2">Local Cab</h3>
@@ -76,7 +76,7 @@ function Home() {
 
             {/* Service Card 3 */}
             <div className="bg-white border border-gray-200 p-6 rounded-lg hover:bg-yellow-500 transition-colors duration-300">
-              <div className="bg-gray-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <div className="bg-zinc-900 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl text-white"><FaPlane /> </span>
               </div>
               <h3 className="text-xl font-bold mb-2">Airport Transfer</h3>
@@ -145,14 +145,14 @@ function Home() {
       </div>
 
       {/* Pricing div */}
-      <div className="py-16 px-4 bg-gray-50">
+      <div className="py-16 px-4 bg-gray-100">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-5 text-gray-800">Flexible Taxi Fares</h2>
+          <h2 className="text-3xl font-bold text-center mb-5 text-zinc-900">Flexible Taxi Fares</h2>
           <p className="text-center mb-12 w-full">At Rydo, we understand that every journey is unique, which is why we offer flexible and competitive rates tailored to your specific needs. Our pricing structure is designed to provide transparency, affordability, and value, ensuring that you receive the best service at a fair price.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Basic Plan */}
             <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:bg-yellow-500 hover:transition-colors duration-300">
-              <div className="bg-gray-800 text-white text-center py-4">
+              <div className="bg-zinc-900 text-white text-center py-4">
                 <h3 className="text-xl font-bold">Economy Ride</h3>
               </div>
               <div className="p-6">
@@ -174,7 +174,7 @@ function Home() {
                     <span>Small Luggage Space</span>
                   </li>
                 </ul>
-                <button className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-900">
+                <button className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
                   Book Now
                 </button>
               </div>
@@ -182,7 +182,7 @@ function Home() {
 
             {/* Premium Plan */}
             <div className="bg-white border border-gray-200 rounded-lg overflow-hidden transform scale-105 hover:bg-yellow-500 transition-colors duration-300">
-              <div className="bg-gray-800 text-white text-center py-4">
+              <div className="bg-zinc-900 text-white text-center py-4">
                 <h3 className="text-xl font-bold">Premium Ride</h3>
               </div>
               <div className="p-6">
@@ -204,7 +204,7 @@ function Home() {
                     <span>Extra Luggage Space</span>
                   </li>
                 </ul>
-                <button className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-800">
+                <button className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
                   Book Now
                 </button>
               </div>
@@ -212,7 +212,7 @@ function Home() {
 
             {/* Luxury Plan */}
             <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:bg-yellow-500 hover:transition-colors duration-300">
-              <div className="bg-gray-800 text-white text-center py-4">
+              <div className="bg-zinc-900 text-white text-center py-4">
                 <h3 className="text-xl font-bold">Luxury Ride</h3>
               </div>
               <div className="p-6">
@@ -234,7 +234,7 @@ function Home() {
                     <span>Professional Driver</span>
                   </li>
                 </ul>
-                <button className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-700">
+                <button className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
                   Book Now
                 </button>
               </div>
@@ -246,7 +246,7 @@ function Home() {
       {/* Features div */}
       <div className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="text-3xl font-bold text-center mb-12 text-zinc-900">
             Why Choose Us?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -302,7 +302,7 @@ function Home() {
       </div>
 
       {/* Testimonials div */}
-      <div className="py-16 px-4 bg-gray-900 text-white">
+      <div className="py-16 px-4 bg-zinc-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">
             Our Customer Reviews

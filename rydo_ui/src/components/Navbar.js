@@ -7,7 +7,7 @@ import { FaUser  } from "react-icons/fa";
 
 function Navbar() {
   return (
-    <nav className="bg-gray-800 text-white">
+    <nav className="bg-zinc-900 text-white">
       <div className="flex items-center justify-between max-w-7xl mx-auto px-4">
         {/* Logo */}
         <div className="flex items-center gap-8">
@@ -28,7 +28,7 @@ function Navbar() {
             </NavLink>
             
             <NavLink
-              to="#"
+              to="/ride-booking"
               className={function(props) {
                 return props.isActive
                   ? "text-white border-b-2 border-blue-500 py-5 px-4 font-normal"

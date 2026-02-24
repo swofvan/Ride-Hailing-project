@@ -97,7 +97,7 @@ function Login() {
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 
           <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h1>
+              <h1 className="text-3xl font-bold text-zinc-900 mb-2">Sign In</h1>
           </div>
 
           <form className="space-y-6">
@@ -137,7 +137,7 @@ function Login() {
           
             <button
               type="button"
-              className="w-full bg-gray-800 text-white py-3 rounded-lg font-semibold hover:bg-gray-700 transition duration-200 shadow-lg hover:shadow-xl"
+              className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold hover:bg-black transition duration-200 shadow-lg hover:shadow-xl"
               onClick={loginuser}
             >
               Sign in
@@ -152,7 +152,7 @@ function Login() {
 
           <p className="text-center text-sm text-gray-600 mt-6">
             Don't have an account? &nbsp;
-            <Link to="/signup" className="text-gray-800 hover:text-blue-600 font-semibold">
+            <Link to="/signup" className="text-zinc-900 hover:text-blue-600 font-semibold">
               Sign Up
             </Link>
           </p>
