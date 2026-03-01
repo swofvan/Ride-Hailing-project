@@ -3,7 +3,10 @@ import Footer from "./footer";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
+import checkAuth from "./auth/checkAuth";
+
 
 function UserProfile() {
     
@@ -64,8 +67,9 @@ function UserProfile() {
                 <div className="px-6 sm:px-8 py-8 -mt-16">
                     
                     <div className="bg-white rounded-xl shadow-md p-6 mb-8">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 mb-1">{userData.name}</h2>
-                    <p className="text-gray-500">{userData.email}</p>
+                        
+                        <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">name</h3>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 mb-1">{userData.name}</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -73,6 +77,11 @@ function UserProfile() {
                         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
                             <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Phone Number</h3>
                             <p className="text-xl text-zinc-900 font-medium">{userData.phone}</p>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                            <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Email</h3>
+                            <p className="text-xl text-zinc-900 font-medium">{userData.email}</p>
                         </div>
                 {userData. vehicle_number && (
                         <>
@@ -98,12 +107,15 @@ function UserProfile() {
                     </div>
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                        <button className="flex-1 bg-zinc-900 hover:bg-black text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
+                        <Link
+                            className="flex-1 text-center bg-zinc-900 hover:bg-black text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
                             Edit Profile
-                        </button>
-                        <button className="flex-1 bg-red-600 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200">
+                        </Link>
+                        <Link
+                            to="/logout"
+                            className="flex-1 text-center bg-red-600 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200">
                             Logout
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 </div>
@@ -120,4 +132,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default checkAuth(UserProfile);
