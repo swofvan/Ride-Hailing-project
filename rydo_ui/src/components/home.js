@@ -1,7 +1,7 @@
 import homeimg2 from '../images/rydo_homeimg2.png'
 import phone from '../images/mobile.png'
 import cardriver from '../images/car_driver.jpeg'
-
+import { Link } from 'react-router-dom';
 
 import { FaCar, FaCity, FaPlane, FaTags, FaHeadset, FaBolt, FaStar, FaUserTie, FaBroom } from "react-icons/fa";
 
@@ -22,13 +22,15 @@ function Home() {
                     Comfortable Trip
                     </h1>
 
-                    <p className="text-gray-300 mb-6">
+                    <p className="text-gray-300 mb-10">
                     Safe, reliable, and affordable rides at your fingertips
                     </p>
 
-                    <button className="bg-transparent text-white border border-white px-8 py-3 rounded-lg font-semibold hover:bg-transparent hover:text-black hover:bg-yellow-500 hover:border-yellow-500 transition">
+                    <Link
+                      to="/ride-booking"
+                      className="bg-transparent text-white border border-white px-8 py-3 rounded-lg font-semibold hover:bg-transparent hover:text-black hover:bg-yellow-500 hover:border-yellow-500 transition">
                     Book Now
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="flex justify-center md:justify-end">
@@ -174,9 +176,11 @@ function Home() {
                     <span>Small Luggage Space</span>
                   </li>
                 </ul>
-                <button className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
+                <Link
+                      to="/ride-booking"
+                      className="block text-center w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -204,9 +208,11 @@ function Home() {
                     <span>Extra Luggage Space</span>
                   </li>
                 </ul>
-                <button className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
+                <Link
+                      to="/ride-booking"
+                      className="block text-center w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -234,9 +240,11 @@ function Home() {
                     <span>Professional Driver</span>
                   </li>
                 </ul>
-                <button className="w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
+                <Link
+                      to="/ride-booking"
+                      className="block text-center w-full bg-zinc-900 text-white py-3 rounded-lg font-semibold">
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -41,28 +41,25 @@ function Login() {
     
     
     axios.post("http://127.0.0.1:8000/auth/login/", user)
-        .then(response => 
-        {
+      .then(response => {
+        setErrorMessage('');
 
-      setErrorMessage('');
+        const accessToken = response.data?.access;
+        const refreshToken = response.data?.refresh;
 
-      console.log("LOGIN RESPONSE:", response.data);
+        if (!accessToken || !refreshToken) {
+          setErrorMessage("Login response did not return tokens");
+          return;
+        }
+  
+        localStorage.setItem("access", accessToken);
+        localStorage.setItem("refresh", refreshToken);
 
-      const accessToken = response.data?.access;
-      const refreshToken = response.data?.refresh;
+        // dispatch(setUser({email:email}));
+        dispatch(setUser(accessToken));
 
-      if (!accessToken || !refreshToken) {
-        setErrorMessage("Login response did not return tokens");
-        return;
-      }
- 
-      localStorage.setItem("access", accessToken);
-      localStorage.setItem("refresh", refreshToken);
 
-      dispatch(setUser({email:email}));
-
-      navigate("/");
-
+        navigate("/");
       })
       
       .catch(error => {

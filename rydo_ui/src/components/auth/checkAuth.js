@@ -4,13 +4,15 @@ import { useNavigate } from "react-router-dom"
 
 const checkAuth = (Component) =>{
     function Wrapper(props){
-        var user = useSelector(store=>store.auth.user);
+        var user = useSelector((store) => store.auth.user);
         var navigate = useNavigate();
+
         useEffect(()=>{
             if(!user){
                 navigate('/login');
             }
         },[user, navigate]);
+
         return <Component {...props}/>;
     }
     return Wrapper;

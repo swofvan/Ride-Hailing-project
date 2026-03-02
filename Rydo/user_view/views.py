@@ -10,6 +10,11 @@ from auth_app.serializers import UserSerializer, DriverSerializer
 
 from .forms import RideForm
 from .serializers import RideSerializer
+from .models import Ride
+
+from django.db.models import Q
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import status
 
 # ----------------------------------------------------------------------------- Profle view
 
@@ -63,3 +68,87 @@ def ride_booking(request):
         return Response(serializer.data)
 
     return Response(form.errors)
+
+
+# ----------------------------------------------------------------------------- rides list for Drivers
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def ride_requests(request):
+    try:
+        driver = Driver.objects.get(user=request.user, status='accepted')
+    except Driver.DoesNotExist:
+        return Response({"error": "You are not an approved driver."}, status=403)
+
+    search = request.GET.get('search', '')
+
+    rides = Ride.objects.filter(
+        status='pending',
+        driver__isnull = True
+        ).filter(
+            Q(ride_type__icontains=search) |
+            Q(status__icontains=search)
+        ).order_by('-created_at')
+
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+    result_page = paginator.paginate_queryset(rides, request)
+
+    serializer = RideSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
+
+
+
+# ----------------------------------------------------------------------------- Accept Ride for Drivers
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def accept_ride(request, ride_id):
+    try:
+        driver = Driver.objects.get(user=request.user, status='accepted')
+    except Driver.DoesNotExist:
+        return Response({"error": "Not an approved driver"}, status=403)
+
+    try:
+        ride = Ride.objects.get(id=ride_id, status='pending', driver__isnull=True)
+    except Ride.DoesNotExist:
+        return Response({"error": "Ride not available"}, status=404)
+
+    ride.driver = request.user
+    ride.status = 'accepted'
+    ride.save()
+
+    return Response({"message": "Ride accepted successfully"})
+
+
+# ----------------------------------------------------------------------------- Cancel Ride for Drivers
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def cancel_ride(request, ride_id):
+    try:
+        ride = Ride.objects.get(id=ride_id, driver=request.user, status='accepted')
+    except Ride.DoesNotExist:
+        return Response({"error": "Ride not found"}, status=404)
+
+    ride.driver = None
+    ride.status = 'pending'
+    ride.save()
+
+    return Response({"message": "Ride cancelled successfully"})
+
+
+# ----------------------------------------------------------------------------- Complete Ride for Drivers
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def complete_ride(request, ride_id):
+    try:
+        ride = Ride.objects.get(id=ride_id, driver=request.user, status='accepted')
+    except Ride.DoesNotExist:
+        return Response({"error": "Ride not found"}, status=404)
+
+    ride.status = 'completed'
+    ride.save()
+
+    return Response({"message": "Ride completed successfully"})
