@@ -4,7 +4,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState:{
         // user: null,
-        user: localStorage.getItem("access") || null,
+        user: localStorage.getItem("access")
     },
     reducers:{
         setUser: (state,action)=>{

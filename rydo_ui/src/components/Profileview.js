@@ -7,6 +7,8 @@ import { useNavigate, Link } from "react-router-dom";
 
 import checkAuth from "./auth/checkAuth";
 
+import { FaHistory, FaEdit, FaExternalLinkAlt } from "react-icons/fa";
+
 
 function UserProfile() {
     
@@ -83,7 +85,7 @@ function UserProfile() {
                             <h3 className="text-xs uppercase tracking-wide text-gray-500 font-semibold mb-2">Email</h3>
                             <p className="text-xl text-zinc-900 font-medium">{userData.email}</p>
                         </div>
-                {userData. vehicle_number && (
+                {userData.vehicle_number && (
                         <>
                         
                             <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
@@ -108,12 +110,19 @@ function UserProfile() {
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-4">
                         <Link
-                            className="flex-1 text-center bg-zinc-900 hover:bg-black text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
+                            className="flex-1 text-center bg-zinc-900 hover:bg-zinc-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center gap-2">
+                            <FaHistory />
+                            History
+                        </Link>
+                        <Link
+                            className="flex-1 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center gap-2">
+                            <FaEdit />
                             Edit Profile
                         </Link>
                         <Link
                             to="/logout"
-                            className="flex-1 text-center bg-red-600 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200">
+                            className="flex-1 text-center bg-red-600 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200 flex items-center justify-center gap-2">
+                            <FaExternalLinkAlt />                            
                             Logout
                         </Link>
                     </div>

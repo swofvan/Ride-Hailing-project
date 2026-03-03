@@ -7,6 +7,8 @@ import { setUser } from "../store/authSlice";
 
 import Navbar from "../Navbar";
 
+import { FaCheckCircle } from "react-icons/fa";
+
 function DriverSignUp() {
 
     const [name, setName] = useState('');
@@ -17,6 +19,8 @@ function DriverSignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -67,7 +71,13 @@ function DriverSignUp() {
 
         dispatch(setUser(response.data.data));
 
-        navigate("/");
+        // navigate("/");
+
+        setShowSuccess(true);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
 
         })
         
@@ -95,6 +105,19 @@ function DriverSignUp() {
   return (
     <>
       <Navbar/>
+
+      {showSuccess && (
+        <div className="fixed top-25 left-0 right-0 flex justify-center z-50">
+          <div className="w-80 bg-green-100 border-green-500 border-1 text-green-500 px-6 py-4 rounded-md flex items-center gap-2">
+            <span className="font-green-500 "> <FaCheckCircle /> </span>
+            <div className="flex flex-col gap-1">
+              <h4 className="font-semibold text-sm">Application Submitted!</h4>
+              <p className="text-xs text-green-600">Your driver request is now being reviewed by our admin team. You will receive a notification once approved.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 

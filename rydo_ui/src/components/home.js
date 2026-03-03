@@ -33,11 +33,11 @@ function Home() {
                     </Link>
                 </div>
 
-                <div className="flex justify-center md:justify-end">
+                <div className="hidden md:flex justify-center md:justify-end">
                     <img
                     src={phone}
                     alt="Rydo Phone"
-                    className="w-80 md:w-150 hover:scale-105 transition-transform duration-500"
+                    className="w-60 md:w-110 hover:scale-105 transition-transform duration-500"
                     />
                 </div>
 
