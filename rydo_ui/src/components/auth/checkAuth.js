@@ -5,27 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
 import Navbar from "../Navbar";
 
-// const checkAuth = (Component) =>{
-//     function Wrapper(props){
-//         const user = useSelector((store) => store.auth.user);
-//         const navigate = useNavigate();
-
-//         useEffect(()=>{
-//             if(!user){
-//                 navigate('/login');
-//             }
-//         },[user, navigate]);
-
-//         if (!user) {
-//             return null;
-//         }
-
-//         return <Component {...props}/>;
-//     }
-//     return Wrapper;
-// }
-
-// export default checkAuth;
 
 
 const checkAuth = (Component) => {
