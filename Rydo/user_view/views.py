@@ -16,6 +16,8 @@ from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 
+import requests  # needed for location API
+
 # ----------------------------------------------------------------------------- Profle view
 
 @api_view(['GET'])
@@ -62,6 +64,18 @@ def ride_booking(request):
         elif ride_type == 'luxury':
             ride.fare = distance * 200
 
+        pickup_url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={ride.pickup_lat}&lon={ride.pickup_lng}"
+        drop_url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={ride.drop_lat}&lon={ride.drop_lng}"
+
+        pickup_res = requests.get(pickup_url)
+        drop_res = requests.get(drop_url)
+
+        if pickup_res.status_code == 200:
+            ride.pickup_address = pickup_res.json().get("display_name")
+
+        if drop_res.status_code == 200:
+            ride.drop_address = drop_res.json().get("display_name")
+
         ride.save()
 
         serializer = RideSerializer(ride)
@@ -87,7 +101,9 @@ def ride_requests(request):
         driver__isnull = True
         ).filter(
             Q(ride_type__icontains=search) |
-            Q(status__icontains=search)
+            Q(status__icontains=search) |
+            Q(pickup_address__icontains=search) |
+            Q(drop_address__icontains=search)
         ).order_by('-created_at')
 
     paginator = PageNumberPagination()

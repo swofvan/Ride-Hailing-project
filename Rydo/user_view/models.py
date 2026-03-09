@@ -34,6 +34,9 @@ class Ride(models.Model):
     drop_lat = models.FloatField()
     drop_lng = models.FloatField()
 
+    pickup_address = models.CharField(max_length=400, blank=True, null=True)
+    drop_address = models.CharField(max_length=400, blank=True, null=True)
+
     distance = models.FloatField()
 
     ride_type = models.CharField(max_length=20, choices=RIDE_TYPES)
