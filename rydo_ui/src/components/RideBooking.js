@@ -9,9 +9,11 @@ import "leaflet/dist/leaflet.css";
 
 import checkAuth from "./auth/checkAuth";
 
+import { useNavigate } from "react-router-dom";
+
 function RideBooking() {
 
-  const mapRef = useRef(null);   // ✅ FIX
+  const mapRef = useRef(null);
   const [map, setMap] = useState(null);
 
   const [pickup, setPickup] = useState("");
@@ -30,6 +32,8 @@ function RideBooking() {
 
   const [rideType, setRideType] = useState("");
   const [farePerKm, setFarePerKm] = useState(0);
+
+  const navigate = useNavigate();
 
   const rideOptions = [
     { id: "economy", label: "Economy", rate: "₹50/km", price: 50 },
@@ -136,6 +140,7 @@ function RideBooking() {
     .then(response => {
       console.log("Ride booked successfully:", response.data);
       alert("Ride booked successfully!");
+      navigate('/')
     })
     .catch(error => {
       console.log("Error:", error.response?.data);
@@ -143,7 +148,7 @@ function RideBooking() {
     });
   };
 
-  // ✅ FIXED MAP INITIALIZATION
+  // MAP INITIALIZATION
   useEffect(() => {
     if (!mapRef.current) return;
 
