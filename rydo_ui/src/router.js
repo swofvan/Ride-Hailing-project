@@ -8,6 +8,7 @@ import UserProfile from "./components/Profileview";
 import RideBooking from "./components/RideBooking";
 import Logout from "./components/auth/Logout";
 import RideBookingList from "./components/Drive";
+import CurrentRide from "./components/CurrentRide";
 
 const router = createBrowserRouter([
     { path: '', element: <App/> },
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     { path: 'profile', element: <UserProfile/> },
     { path: 'ride-booking', element: <RideBooking/> },
     { path: 'drive', element: <RideBookingList/> },
+    { path: 'currentride', element: <CurrentRide/> },
     
 ]);
 

@@ -137,6 +137,27 @@ def accept_ride(request, ride_id):
     return Response({"message": "Ride accepted successfully"})
 
 
+# ----------------------------------------------------------------------------- Drivers current ride
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_ride(request):
+    try:
+        driver = Driver.objects.get(user=request.user, status='accepted')
+    except Driver.DoesNotExist:
+        return Response({"error": "You are not an approved driver."}, status=403)
+
+    search = request.GET.get('search', '')
+
+    rides = Ride.objects.filter(
+        driver=request.user,
+        status='accepted'
+    ).order_by('-created_at')
+
+    serializer = RideSerializer(rides, many=True)
+    return Response(serializer.data)
+
+
 # ----------------------------------------------------------------------------- Cancel Ride for Drivers
 
 @api_view(['POST'])

@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./footer";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaCarSide } from "react-icons/fa";
 import checkAuth from "./auth/checkAuth";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function RideBookingList() {
 
@@ -352,13 +352,50 @@ function RideBookingList() {
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
-          <div className="mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          {/* <div className="mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-zink-900">
               Ride List
             </h1>
             <p className="text-sm text-gray-500 mt-1">
               Select and start your Drive
             </p>
+
+              <Link
+                to={'/profile'}
+                className="flex items-center justify-center px-2 py-2 rounded-full text-zinc-800 transition-all duration-300 hover:text-yellow-800 hover:border-1 hover:border-white cursor-pointer">
+                <span className="text-[30px]"><FaCarSide /></span>
+              </Link>
+
+          </div> */}
+
+          <div className="mb-6 flex items-center justify-between">
+            {/* Left: Title & subtitle */}
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-zinc-900">
+                Ride List
+              </h1>
+              <p className="text-sm text-gray-500 mt-1">
+                Select and start your Drive
+              </p>
+            </div>
+
+            {/* Right: Current Rides button + car icon */}
+            <div className="flex items-center gap-2">
+              <Link
+                to="/current-rides"
+                className="flex items-center gap-2 px-3 py-2 rounded-full bg-yellow-400 text-zinc-900 font-semibold text-sm transition-all duration-300 hover:bg-yellow-500 cursor-pointer"
+              >
+                <span className="hidden sm:inline">Current Rides</span>
+                <span className="text-lg"><FaCarSide /></span>
+              </Link>
+
+              <Link
+                to="/profile"
+                className="flex items-center justify-center p-2 rounded-full text-zinc-800 transition-all duration-300 hover:text-yellow-800 cursor-pointer"
+              >
+                {/* your profile icon here */}
+              </Link>
+            </div>
           </div>
 
           {/* Search */}
@@ -544,7 +581,7 @@ function RideBookingList() {
                       <div className="flex gap-2 pt-1">
                         {ride.status === "pending" && (
                           <button
-                            onClick={function () { acceptRide(ride.id); }}
+                            onClick={() => { acceptRide(ride.id); }}
                             className="flex-1 bg-green-700 hover:bg-green-800 active:scale-95 text-white py-2 rounded-lg text-xs font-semibold transition-all"
                           >
                             Accept
@@ -553,13 +590,13 @@ function RideBookingList() {
                         {ride.status === "accepted" && (
                           <>
                             <button
-                              onClick={function () { cancelRide(ride.id); }}
+                              onClick={() => { cancelRide(ride.id); }}
                               className="flex-1 bg-yellow-500 hover:bg-yellow-600 active:scale-95 text-white py-2 rounded-lg text-xs font-semibold transition-all"
                             >
                               Cancel
                             </button>
                             <button
-                              onClick={function () { completeRide(ride.id); }}
+                              onClick={() => { completeRide(ride.id); }}
                               className="flex-1 bg-green-600 hover:bg-green-700 active:scale-95 text-white py-2 rounded-lg text-xs font-semibold transition-all"
                             >
                               Complete
