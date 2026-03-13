@@ -382,7 +382,7 @@ function RideBookingList() {
             {/* Right: Current Rides button + car icon */}
             <div className="flex items-center gap-2">
               <Link
-                to="/current-rides"
+                to="/current-ride"
                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-yellow-400 text-zinc-900 font-semibold text-sm transition-all duration-300 hover:bg-yellow-500 cursor-pointer"
               >
                 <span className="hidden sm:inline">Current Rides</span>

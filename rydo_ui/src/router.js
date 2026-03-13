@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     { path: 'profile', element: <UserProfile/> },
     { path: 'ride-booking', element: <RideBooking/> },
     { path: 'drive', element: <RideBookingList/> },
-    { path: 'currentride', element: <CurrentRide/> },
+    { path: 'current-ride', element: <CurrentRide/> },
     
 ]);
 
