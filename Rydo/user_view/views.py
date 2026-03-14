@@ -67,8 +67,15 @@ def ride_booking(request):
         pickup_url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={ride.pickup_lat}&lon={ride.pickup_lng}"
         drop_url = f"https://nominatim.openstreetmap.org/reverse?format=json&lat={ride.drop_lat}&lon={ride.drop_lng}"
 
-        pickup_res = requests.get(pickup_url)
-        drop_res = requests.get(drop_url)
+        headers = {
+            "User-Agent": "ride-hailing-app"
+        }
+
+        pickup_res = requests.get(pickup_url, headers=headers)
+        drop_res = requests.get(drop_url, headers=headers)
+
+        # pickup_res = requests.get(pickup_url)
+        # drop_res = requests.get(drop_url)
 
         if pickup_res.status_code == 200:
             ride.pickup_address = pickup_res.json().get("display_name")
@@ -83,6 +90,29 @@ def ride_booking(request):
 
     return Response(form.errors)
 
+
+# ----------------------------------------------------------------------------- change lat and lon to address
+
+def get_address(lat, lon):
+    url = "https://nominatim.openstreetmap.org/reverse"
+
+    params = {
+        "format": "json",
+        "lat": lat,
+        "lon": lon
+    }
+    
+    headers = {
+        "User-Agent": "ride-hailing-app"
+    }
+
+    response = requests.get(url, params=params, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("display_name", "")
+    
+    return ""
 
 # ----------------------------------------------------------------------------- rides list for Drivers
 

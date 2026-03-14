@@ -8,10 +8,6 @@ import { useNavigate } from "react-router-dom";
 function CurrentRide() {
 
   const [rides, setRides] = useState([]);
-  const [locations, setLocations] = useState({});
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
   const [notDriver, setNotDriver] = useState(false);
 
   const navigate = useNavigate();
@@ -29,52 +25,18 @@ function CurrentRide() {
         },
       }
     )
-    .then(function (response) {
-
+    
+    .then( (response) => {
       setRides(response.data);
-      setTotalCount(response.data.length);
-
-      response.data.forEach(function (ride) {
-
-        getLocationName(ride.pickup_lat, ride.pickup_lng, ride.id, "pickup");
-        getLocationName(ride.drop_lat, ride.drop_lng, ride.id, "drop");
-
-      });
 
     })
-    .catch(function (error) {
+    .catch( (error) => {
 
       if (error.response && error.response.status === 403) {
         setNotDriver(true);
       }
 
       console.error(error);
-    });
-  }
-
-  // -------- Reverse Geocode --------
-  function getLocationName(lat, lng, rideId, type) {
-
-    axios.get(
-      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
-    )
-    .then(function (response) {
-
-      const address = response.data.display_name;
-
-      setLocations( (prev) => {
-        return {
-          ...prev,
-          [rideId]: {
-            ...prev[rideId],
-            [type]: address
-          }
-        };
-      });
-
-    })
-    .catch(function () {
-      console.log("Location fetch error");
     });
   }
 
@@ -92,7 +54,7 @@ function CurrentRide() {
       }
     )
     .then(() => {
-      fetchRides(search, page);
+      fetchRides();
       navigate('/')
     })
     .catch((error) => {
@@ -121,7 +83,7 @@ function CurrentRide() {
     });
   }
 
-  useEffect(function () {
+  useEffect( () => {
     fetchRides();
   }, []);
 
@@ -146,10 +108,6 @@ function CurrentRide() {
     );
   }
 
-  function handleSearch(){
-    fetchRides();
-  }
-
   return (
     <div>
       <Navbar/>
@@ -159,28 +117,8 @@ function CurrentRide() {
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              Ride List
+              Current Ride
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Select and start your Drive
-            </p>
-          </div>
-
-          {/* Search */}
-          <div className="flex gap-2 mb-6">
-            <input
-              type="text"
-              placeholder="Search by Ride type, Status and location"
-              value={search}
-              onChange={function (e) { setSearch(e.target.value); }}
-              className="flex-1 border border-gray-200 bg-white rounded-md px-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              onClick={handleSearch}
-              className="bg-zinc-900 hover:bg-zinc-700 text-white px-5 py-2.5 rounded-md text-sm font-medium shadow-sm transition-colors"
-            >
-              Search
-            </button>
           </div>
 
           {/* Desktop Table */}
@@ -203,7 +141,7 @@ function CurrentRide() {
                 No rides found.
               </div>
             ) : (
-              rides.map(function (ride, index) {
+              rides.map( (ride, index) => {
                 return (
                   <div
                     key={ride.id}
@@ -212,13 +150,13 @@ function CurrentRide() {
                     }`}
                   >
                     <div className="font-medium text-gray-700">#{ride.id}</div>
-                    <div className="text-gray-500">{ride.user.phone}</div>
+                    <div className="text-gray-500">{ride.user_phone}</div>
 
                     <div className="text-gray-500 text-xs">
-                      {locations[ride.id]?.pickup || "Loading..."}
+                       {ride.pickup_address}
                     </div>
                     <div className="text-gray-500 text-xs">
-                      {locations[ride.id]?.drop || "Loading..."}
+                        {ride.drop_address}
                     </div>
 
                     <div className="text-gray-700">{ride.distance} km</div>
@@ -238,14 +176,14 @@ function CurrentRide() {
                     <div className="flex gap-2">
 
                       <button
-                        onClick={function () { cancelRide(ride.id); }}
+                        onClick={ () => { cancelRide(ride.id); }}
                         className="bg-yellow-500 hover:bg-yellow-600 active:scale-95 text-white px-3 py-1 rounded-lg text-xs font-semibold transition-all"
                       >
                         Cancel
                       </button>
 
                       <button
-                        onClick={function () { completeRide(ride.id); }}
+                        onClick={ () => { completeRide(ride.id); }}
                         className="bg-green-600 hover:bg-green-700 active:scale-95 text-white px-3 py-1 rounded-lg text-xs font-semibold transition-all"
                       >
                         Complete
@@ -266,7 +204,7 @@ function CurrentRide() {
                 No rides found.
               </div>
             ) : (
-              rides.map(function (ride) {
+              rides.map( (ride) => {
                 return (
                   <div
                     key={ride.id}
@@ -285,17 +223,21 @@ function CurrentRide() {
                     </div>
 
                     <div className="text-xs text-gray-500">
-                      <span className="font-semibold text-gray-600">Phone: </span>{ride.user.phone}
+                      <span className="font-semibold text-gray-600">Phone: </span>{ride.user_phone}
                     </div>
 
                     <div className="flex flex-col gap-1">
                       <div className="flex gap-2 text-xs">
                         <span className="font-semibold text-gray-600 min-w-[46px]">Pickup:</span>
-                        <span className="text-gray-500">{locations[ride.id]?.pickup || "Loading..."}</span>
+                        <span className="text-gray-500">
+                          {ride.drop_address}
+                        </span>
                       </div>
                       <div className="flex gap-2 text-xs">
                         <span className="font-semibold text-gray-600 min-w-[46px]">Drop:</span>
-                        <span className="text-gray-500">{locations[ride.id]?.drop || "Loading..."}</span>
+                        <span className="text-gray-500">
+                          {ride.drop_address}
+                        </span>
                       </div>
                     </div>
 
@@ -333,34 +275,7 @@ function CurrentRide() {
               })
             )}
           </div>
-
-          {/* Pagination */}
-          <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-3 text-sm text-gray-500">
-            <span>
-              Showing <span className="font-semibold text-gray-700">{rides.length}</span> of{" "}
-              <span className="font-semibold text-gray-700">{totalCount}</span> rides
-            </span>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setPage(page - 1)}
-                disabled={page === 1}
-                className="border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm"
-              >
-                Previous
-              </button>
-              <span className="border border-gray-200 bg-white px-4 py-2 rounded-xl text-sm font-semibold text-gray-700 shadow-sm">
-                {page}
-              </span>
-              <button
-                onClick={() => setPage(page + 1)}
-                disabled={rides.length === 0}
-                className="border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed px-4 py-2 rounded-xl text-sm font-medium transition-colors shadow-sm"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-
+            
         </div>
       </div>
       <Footer/>
