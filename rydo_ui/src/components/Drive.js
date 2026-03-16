@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./footer";
-import { FaLock, FaCarSide } from "react-icons/fa";
+import { FaLock, FaCarSide, FaCar } from "react-icons/fa";
 import checkAuth from "./auth/checkAuth";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -13,6 +13,8 @@ function RideBookingList() {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [notDriver, setNotDriver] = useState(false);
+
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -64,7 +66,12 @@ function RideBookingList() {
     )
     .then(() => {
       fetchRides(search, page);
-      navigate('/');
+      // navigate('/current-ride');
+      
+      setShowSuccess(true);
+      setTimeout(() => {
+          navigate("/current-drive");
+        }, 1000);
     })
     .catch((error) => {
       console.error(error);
@@ -95,6 +102,14 @@ function RideBookingList() {
   return (
     <div>
       <Navbar/>
+      {showSuccess && (
+        <div className="fixed top-25 left-0 right-0 flex justify-center z-50">
+            <div className="bg-green-100 border-green-500 border-1 text-green-500 px-6 py-4 rounded-md flex items-center gap-2">
+              <span className="font-green-500 "> <FaCar /> </span>
+                Start Your Drive
+            </div>
+        </div>
+            )}
       <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
 
@@ -111,7 +126,7 @@ function RideBookingList() {
 
             <div className="flex items-center gap-2">
               <Link
-                to="/current-ride"
+                to="/current-drive"
                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-yellow-400 text-zinc-900 font-semibold text-sm transition-all duration-300 hover:bg-yellow-500 cursor-pointer"
               >
                 <span className="hidden sm:inline">Current Ride</span>

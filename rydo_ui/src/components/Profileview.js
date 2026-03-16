@@ -110,6 +110,7 @@ function UserProfile() {
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-4">
                         <Link
+                            to='/user-history'
                             className="flex-1 text-center bg-zinc-900 hover:bg-zinc-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center gap-2">
                             <FaHistory />
                             History

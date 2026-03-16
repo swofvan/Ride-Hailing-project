@@ -4,8 +4,9 @@ import Navbar from "./Navbar";
 import Footer from "./footer";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import checkAuth from "./auth/checkAuth";
 
-function CurrentRide() {
+function CurrentDrive() {
 
   const [rides, setRides] = useState([]);
   const [notDriver, setNotDriver] = useState(false);
@@ -18,7 +19,7 @@ function CurrentRide() {
     const token = localStorage.getItem("access");
 
     axios.get(
-      "http://127.0.0.1:8000/user/current_ride/",
+      "http://127.0.0.1:8000/user/current_drive/",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -283,4 +284,4 @@ function CurrentRide() {
   );
 }
 
-export default CurrentRide;
+export default checkAuth(CurrentDrive);

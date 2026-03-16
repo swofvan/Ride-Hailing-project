@@ -9,7 +9,7 @@ from auth_app.models import Driver
 from auth_app.serializers import UserSerializer, DriverSerializer
 
 from .forms import RideForm
-from .serializers import RideSerializer
+from .serializers import RideSerializer, HistorySerializer
 from .models import Ride
 
 from django.db.models import Q
@@ -171,7 +171,7 @@ def accept_ride(request, ride_id):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def current_ride(request):
+def current_drive(request):
     try:
         driver = Driver.objects.get(user=request.user, status='accepted')
     except Driver.DoesNotExist:
@@ -219,3 +219,59 @@ def complete_ride(request, ride_id):
     ride.save()
 
     return Response({"message": "Ride completed successfully"})
+
+
+# ----------------------------------------------------------------------------- user history
+
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def user_history(request):
+
+#     user = request.user
+
+#     try:
+#         driver = Driver.objects.get(user=user)
+
+#         rides = Ride.objects.filter(
+#             driver=driver,
+#             status__in=['completed', 'cancelled']
+#         ).order_by('-created_at')
+
+#     except Driver.DoesNotExist:
+
+#         rides = Ride.objects.filter(
+#             user=user,
+#             status__in=['completed', 'cancelled']
+#         ).order_by('-created_at')
+
+#     serializer = HistorySerializer(rides, many=True)
+
+#     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_history(request):
+
+    user = request.user
+
+    try:
+        # check if this user has a Driver profile
+        Driver.objects.get(user=user)
+
+        # if driver exists, get rides where this user is the driver
+        rides = Ride.objects.filter(
+            driver=user,
+            status__in=['completed', 'cancelled']
+        ).order_by('-created_at')
+
+    except Driver.DoesNotExist:
+
+        # otherwise get rides where this user is the passenger
+        rides = Ride.objects.filter(
+            user=user,
+            status__in=['completed', 'cancelled']
+        ).order_by('-created_at')
+
+    serializer = HistorySerializer(rides, many=True)
+
+    return Response(serializer.data)

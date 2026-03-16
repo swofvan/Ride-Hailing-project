@@ -75,7 +75,7 @@ function Login() {
 
         setTimeout(() => {
           navigate("/");
-        }, 3000);
+        }, 1000);
 
       })
       
