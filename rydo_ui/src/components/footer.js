@@ -1,5 +1,4 @@
 function Footer() {
-    {/* Footer */}
     return (
         <div className="bg-zinc-900 text-white py-12 px-4">
             <div className="max-w-6xl mx-auto">
@@ -7,16 +6,16 @@ function Footer() {
                 <div>
                 <h3 className="text-xl font-bold mb-4">Address</h3>
                 <p className="text-gray-300">
-                    Palarivattam, Kochi<br />
-                    Kerala - 673501<br />
+                    Palarivattam, Kochi<br/>
+                    Kerala - 673501<br/>
                     India
                 </p>
                 </div>
                 <div>
                 <h3 className="text-xl font-bold mb-4">Contact</h3>
                 <p className="text-gray-300">
-                    Phone: +91 98765 43210<br />
-                    Email: info@rydo.com<br />
+                    Phone: +91 98765 43210<br/>
+                    Email: info@rydo.com<br/>
                     24/7 Support Available
                 </p>
                 </div>
