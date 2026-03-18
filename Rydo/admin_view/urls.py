@@ -17,4 +17,8 @@ urlpatterns = [
     path('disable_driver/<int:driver_id>/', views.disable_driver, name='disable_driver'),
     path('enable_driver/<int:driver_id>/', views.enable_driver, name='enable_driver'),
     path('delete_driver/<int:driver_id>/', views.delete_driver, name='delete_driver'),
+
+    path('rides/', views.ride_list, name='rides_list'),
+    path('rides/cancel_ride/<int:ride_id>/', views.cancel_ride, name='cancel_ride'),    
+    path('rides/edit_ride/<int:ride_id>/', views.edit_ride, name='edit_ride'),
 ]

@@ -1,0 +1,186 @@
+{% extends 'layout/app-layout.html' %}
+{% block content %}
+
+
+<div class="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-zinc-900">All Rides</h1>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-3 gap-3 mb-6">
+      <div class="bg-white rounded-md border border-gray-100 shadow-sm p-4">
+        <p class="text-xs text-gray-400 mb-1">Total Rides</p>
+        <p class="text-2xl font-bold text-zinc-900">{{ rides|length }}</p>
+      </div>
+      <div class="bg-white rounded-md border border-gray-100 shadow-sm p-4">
+        <p class="text-xs text-gray-400 mb-1">Total Fare</p>
+        <p class="text-2xl font-bold text-zinc-900">₹ {{ total_fare| default:"0" }}</p>
+      </div>
+      <div class="bg-white rounded-md border border-gray-100 shadow-sm p-4">
+        <p class="text-xs text-gray-400 mb-1">Pending Rides</p>
+        <p class="text-2xl font-bold text-zinc-900">{{ pending_count|default:"0" }}</p>
+      </div>
+    </div>
+
+    <!-- Desktop Table -->
+    <div class="hidden md:block bg-white rounded-md shadow-sm border border-gray-100 overflow-hidden">
+
+      <div class="grid grid-cols-7 bg-gray-50 border-b border-gray-100 px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+        <div>Ride ID</div>
+        <div>Pickup</div>
+        <div>Drop</div>
+        <div>Fare</div>
+        <div>Type</div>
+        <div>Status</div>
+        <div>Actions</div>
+      </div>
+
+      {% if rides %}
+        {% for ride in rides %}
+        <div class="grid grid-cols-7 items-center px-4 py-3.5 border-b border-gray-50 text-sm hover:bg-blue-50 transition-colors {% cycle 'bg-white' 'bg-gray-50/50' %}">
+
+          <div class="font-medium text-gray-700">#{{ ride.id }}</div>
+          <div class="text-gray-500 text-xs pr-2 truncate">{{ ride.pickup_address|default:"—" }}</div>
+          <div class="text-gray-500 text-xs pr-2 truncate">{{ ride.drop_address|default:"—" }}</div>
+          <div class="text-gray-700 font-semibold">₹ {{ ride.fare }}</div>
+
+          <!-- Ride Type Badge -->
+          <div>
+            {% if ride.ride_type == 'economy' %}
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">Economy</span>
+            {% elif ride.ride_type == 'premium' %}
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Premium</span>
+            {% elif ride.ride_type == 'luxury' %}
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">Luxury</span>
+            {% endif %}
+          </div>
+
+          <!-- Status Badge -->
+          <div>
+            {% if ride.status == 'pending' %}
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
+            {% elif ride.status == 'accepted' %}
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Accepted</span>
+            {% elif ride.status == 'completed' %}
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Completed</span>
+            {% endif %}
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-2">
+
+            <form method="POST" action="{% url 'edit_ride' ride.id %}">
+              {% csrf_token %}
+              <button type="submit"
+                      class="px-3 py-1.5 text-xs font-semibold rounded-md bg-zinc-800 text-white hover:bg-zinc-700 transition-colors">
+                Edit
+              </button>
+            </form>
+
+            <form method="POST" action="{% url 'cancel_ride' ride.id %}"
+                  onsubmit="return confirm('Mark this ride as completed?')">
+              {% csrf_token %}
+              <button type="submit"
+                      class="px-3 py-1.5 text-xs font-semibold rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition-colors">
+                Cancel
+              </button>
+            </form>
+
+          </div>
+        </div>
+        {% endfor %}
+
+      {% else %}
+        <div class="text-center py-12 text-gray-400 text-sm">No rides found.</div>
+      {% endif %}
+
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="md:hidden flex flex-col gap-3">
+      {% if rides %}
+        {% for ride in rides %}
+        <div class="bg-white rounded-md shadow-sm border border-gray-100 p-4 flex flex-col gap-3">
+
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-gray-800 text-sm">#{{ ride.id }}</span>
+            <div class="flex items-center gap-2">
+
+              {% if ride.ride_type == 'economy' %}
+                <span class="text-xs font-semibold bg-gray-100 text-gray-600 px-2 py-1 rounded">Economy</span>
+              {% elif ride.ride_type == 'premium' %}
+                <span class="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded">Premium</span>
+              {% elif ride.ride_type == 'luxury' %}
+                <span class="text-xs font-semibold bg-purple-100 text-purple-700 px-2 py-1 rounded">Luxury</span>
+              {% endif %}
+
+              {% if ride.status == 'pending' %}
+                <span class="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
+              {% elif ride.status == 'accepted' %}
+                <span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Accepted</span>
+              {% elif ride.status == 'completed' %}
+                <span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Completed</span>
+              {% endif %}
+
+            </div>
+          </div>
+
+          <div class="text-xs text-gray-400">{{ ride.created_at|date:"M d, Y · h:i A" }}</div>
+
+          <div class="flex flex-col gap-1">
+            <div class="flex gap-2 text-xs">
+              <span class="font-semibold text-gray-600 min-w-[46px]">Pickup</span>
+              <span class="text-gray-500">{{ ride.pickup_address|default:"—" }}</span>
+            </div>
+            <div class="flex gap-2 text-xs">
+              <span class="font-semibold text-gray-600 min-w-[46px]">Drop</span>
+              <span class="text-gray-500">{{ ride.drop_address|default:"—" }}</span>
+            </div>
+          </div>
+
+          <div class="flex gap-4 text-sm pt-2 border-t border-gray-100">
+            <div>
+              <span class="text-gray-400 text-xs">Fare</span>
+              <p class="font-bold text-gray-800">₹ {{ ride.fare }}</p>
+            </div>
+          </div>
+
+          <!-- Mobile Action Buttons -->
+          <div class="flex gap-2 pt-1">
+
+            <form method="POST" action="{% url 'edit_ride' ride.id %}" class="flex-1">
+              {% csrf_token %}
+              <button type="submit"
+                      class="w-full px-3 py-2 text-xs font-semibold rounded-md bg-zinc-800 text-white hover:bg-zinc-700 transition-colors">
+                Edit
+              </button>
+            </form>
+
+            <form method="POST" action="{% url 'cancel_ride' ride.id %}" class="flex-1"
+                  onsubmit="return confirm('Mark this ride as completed?')">
+              {% csrf_token %}
+              <button type="submit"
+                      class="w-full px-3 py-2 text-xs font-semibold rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition-colors">
+                Cancel
+              </button>
+            </form>
+
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="text-center py-12 text-gray-400 text-sm bg-white rounded-md shadow-sm border border-gray-100">
+          No rides found.
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

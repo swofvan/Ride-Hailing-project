@@ -11,8 +11,11 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
-# def is_superuser(user):
-#     return user.is_superuser
+from user_view.models import Ride
+from django.db.models import Sum
+
+def is_admin(user):
+    return user.is_superuser
 
 
 # ----------------------------------------------------------------------------- users list
@@ -164,3 +167,49 @@ def delete_driver(request, driver_id):
 
     messages.success(request, "Driver deleted successfully.")
     return redirect('drivers_list')
+
+
+
+# ----------------------------------------------------------------------------- View All Bookings
+
+def ride_list(request):
+    rides = Ride.objects.all().order_by('-created_at')
+    
+    total_fare = Ride.objects.aggregate(total=Sum('fare'))['total']
+
+    pending_count = Ride.objects.filter(status='pending').count()
+
+    return render(request, 'ride_list.html', {
+        'rides': rides,
+        'total_fare' : total_fare,
+        'pending_count' : pending_count
+    })
+
+
+# ----------------------------------------------------------------------------- cancel Bookings
+
+def cancel_ride(request, ride_id):
+    ride = get_object_or_404(Ride, id=ride_id)
+
+    ride.status = 'completed'   # or 'cancelled' if you add it later
+    ride.save()
+
+    return redirect('ride_list')
+
+
+# ----------------------------------------------------------------------------- edit Bookings
+
+def edit_ride(request, ride_id):
+    ride = get_object_or_404(Ride, id=ride_id)
+
+    if request.method == 'POST':
+        ride.ride_type = request.POST.get('ride_type')
+        ride.fare = request.POST.get('fare')
+        ride.status = request.POST.get('status')
+
+        ride.save()
+        return redirect('all_rides')
+
+    return render(request, 'edit_ride.html', {
+        'ride': ride
+    })
