@@ -191,7 +191,7 @@ def ride_list(request):
 def cancel_ride(request, ride_id):
     ride = get_object_or_404(Ride, id=ride_id)
 
-    ride.status = 'completed'   # or 'cancelled' if you add it later
+    ride.status = 'cancelled'
     ride.save()
 
     return redirect('ride_list')
@@ -208,7 +208,7 @@ def edit_ride(request, ride_id):
         ride.status = request.POST.get('status')
 
         ride.save()
-        return redirect('all_rides')
+        return redirect('rides_list')
 
     return render(request, 'edit_ride.html', {
         'ride': ride
