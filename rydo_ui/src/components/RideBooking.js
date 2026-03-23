@@ -140,7 +140,7 @@ function RideBooking() {
     .then(response => {
       console.log("Ride booked successfully:", response.data);
       alert("Ride booked successfully!");
-      navigate('/')
+      navigate('/current-ride')
     })
     .catch(error => {
       console.log("Error:", error.response?.data);
@@ -396,6 +396,7 @@ function RideBooking() {
     <div className="relative h-48 shrink-0 md:h-auto md:flex-1 pt-4 py-4 md:pt-20 px-4 md:px-20 bg-gray-100">
       <div className="absolute top-6 right-6 md:right-20 z-10">
         <Link
+          to='/current-ride'
           className="flex items-center gap-2 px-3 py-2 rounded-full bg-zinc-900 text-white font-semibold text-sm transition-all duration-300 hover:bg-zinc-700 cursor-pointer"
         >
           <span className="hidden sm:inline">Current Ride</span>

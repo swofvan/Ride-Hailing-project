@@ -13,4 +13,6 @@ urlpatterns = [
     path('ride-cancel/<int:ride_id>/', views.cancel_ride, name='cancel_ride'),
     path('ride-complete/<int:ride_id>/', views.complete_ride, name='complete_ride'),
     path('history/', views.user_history, name='user_history'),
+
+    path('current_ride/', views.current_ride, name='current_ride'),
 ]

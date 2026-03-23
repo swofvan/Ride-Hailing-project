@@ -275,3 +275,20 @@ def user_history(request):
     serializer = HistorySerializer(rides, many=True)
 
     return Response(serializer.data)
+
+
+
+# ----------------------------------------------------------------------------- Current ride (for users)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_ride(request):
+
+    ride = Ride.objects.filter(
+        user=request.user
+    ).exclude(
+        status__in=['completed', 'cancelled']
+    ).order_by('-created_at').first()          # cunvert many to one ride
+
+    serializer = RideSerializer(ride)
+    return Response(serializer.data)

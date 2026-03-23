@@ -10,6 +10,7 @@ import Logout from "./components/auth/Logout";
 import RideBookingList from "./components/Drive";
 import CurrentDrive from "./components/CurrentDrive";
 import UserHistory from "./components/UserHistory";
+import CurrentRide from "./components/CurrentRide";
 
 const router = createBrowserRouter([
     { path: '', element: <App/> },
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     { path: 'drive', element: <RideBookingList/> },
     { path: 'current-drive', element: <CurrentDrive/> },
     { path: 'user-history', element: <UserHistory/> },
+    { path: 'current-ride', element: <CurrentRide/> },
     
 ]);
 
