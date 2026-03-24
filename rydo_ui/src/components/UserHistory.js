@@ -3,9 +3,15 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import checkAuth from "./auth/checkAuth";
+import { Link, useParams } from "react-router-dom";
+import { FaCheck  } from "react-icons/fa";
+
+
 
 function UserHistory() {
   const [rides, setRides] = useState([]);
+
+  const { rideId } = useParams();
 
   useEffect(() => {
     const token = localStorage.getItem("access");
@@ -33,7 +39,7 @@ function UserHistory() {
       day: "numeric",
       month: "short",
       year: "numeric",
-    });
+    }); 
 
   return (
     <div>
@@ -66,7 +72,7 @@ function UserHistory() {
 
           {/* Desktop Table */}
           <div className="hidden md:block bg-white rounded-md shadow-sm border border-gray-100 overflow-hidden">
-            <div className="grid grid-cols-7 bg-gray-50 border-b border-gray-100 px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            <div className="grid grid-cols-8 bg-gray-50 border-b border-gray-100 px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">
               <div>Ride ID</div>
               <div>Pickup</div>
               <div>Drop</div>
@@ -74,6 +80,7 @@ function UserHistory() {
               <div>Fare</div>
               <div>Type</div>
               <div>Status</div>
+              <div></div>
             </div>
 
             {rides.length === 0 ? (
@@ -84,7 +91,7 @@ function UserHistory() {
               rides.map((ride, index) => (
                 <div
                   key={ride.id}
-                  className={`grid grid-cols-7 items-center px-4 py-3.5 border-b border-gray-50 text-sm hover:bg-blue-50 transition-colors ${
+                  className={`grid grid-cols-8 items-center px-4 py-3.5 border-b border-gray-50 text-sm hover:bg-blue-50 transition-colors ${
                     index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
                   }`}
                 >
@@ -98,6 +105,21 @@ function UserHistory() {
                   </div>
                   <div>
                     <span className={statusClass(ride.status)}>{ride.status}</span>
+                  </div>
+                  <div>
+                    {ride.rating != null ? (
+                      <span className="inline-flex justify-center items-center text-s font-semibold text-green-700 bg-green-100 px-2.5 py-1 rounded">
+                        Review saved
+                        <span className="ml-2 text-md"><FaCheck /></span>
+                      </span>
+                    ) : (
+                    <Link
+                      to={`/review/${ride.id}`}
+                      className="inline-flex justify-center items-center gap-1 text-m font-medium text-white bg-zinc-900 hover:bg-zinc-700 px-3 py-1.5 rounded transition-colors"
+                    >
+                      Tap to rate
+                    </Link>
+                    )}
                   </div>
                 </div>
               ))
@@ -119,7 +141,7 @@ function UserHistory() {
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-gray-800 text-sm">#{ride.id}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-semibold uppercase text-zinc-600 bg-gray-100 px-2 py-1 rounded">
+                      <span className="text-xs font-medium uppercase text-zinc-600 bg-gray-100 px-2 py-1 rounded">
                         {ride.ride_type}
                       </span>
                       <span className={statusClass(ride.status)}>{ride.status}</span>
@@ -149,6 +171,19 @@ function UserHistory() {
                       <p className="font-bold text-gray-800">₹ {ride.fare}</p>
                     </div>
                   </div>
+                  {ride.rating != null ? (
+                    <span className="inline-flex justify-center items-center text-xs font-semibold text-green-700 bg-green-100 px-3 py-1.5 rounded">
+                      Review saved
+                      <span className="ml-2 text-md"><FaCheck /></span>
+                    </span>
+                  ) : (
+                  <Link
+                    to={`/review/${ride.id}`}
+                    className="inline-flex justify-center items-center gap-1 text-s font-medium text-white bg-zinc-900 hover:bg-zinc-700 px-3 py-1.5 rounded transition-colors"
+                  >
+                    Tap to rate
+                  </Link>
+                  )}
                 </div>
               ))
             )}

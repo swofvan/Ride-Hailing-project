@@ -11,6 +11,7 @@ import RideBookingList from "./components/Drive";
 import CurrentDrive from "./components/CurrentDrive";
 import UserHistory from "./components/UserHistory";
 import CurrentRide from "./components/CurrentRide";
+import Review from "./components/Review";
 
 const router = createBrowserRouter([
     { path: '', element: <App/> },
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
     { path: 'current-drive', element: <CurrentDrive/> },
     { path: 'user-history', element: <UserHistory/> },
     { path: 'current-ride', element: <CurrentRide/> },
+    { path: 'review/:rideId', element: <Review/> },
     
 ]);
 

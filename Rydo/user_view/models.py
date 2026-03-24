@@ -47,5 +47,9 @@ class Ride(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    rating = models.IntegerField(null=True)
+
+    review = models.TextField(null=True)
+
     def __str__(self):
         return f"Ride {self.id} - {self.user.name}"

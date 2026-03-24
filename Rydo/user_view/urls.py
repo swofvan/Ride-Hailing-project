@@ -15,4 +15,5 @@ urlpatterns = [
     path('history/', views.user_history, name='user_history'),
 
     path('current_ride/', views.current_ride, name='current_ride'),
+    path('review/<int:ride_id>/', views.review, name='review'),
 ]

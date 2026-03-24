@@ -292,3 +292,38 @@ def current_ride(request):
 
     serializer = RideSerializer(ride)
     return Response(serializer.data)
+    
+
+
+# ----------------------------------------------------------------------------- review
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def review(request, ride_id):
+    
+    try:
+        ride = Ride.objects.get(id=ride_id)
+    except Ride.DoesNotExist:
+        return Response({'error': 'Ride not found'}, status=404)
+
+    if ride.user != request.user:
+        return Response({'error': 'Not allowed'}, status=403)
+
+    if ride.status != 'completed':
+        return Response({'error': 'Ride not completed'}, status=400)
+
+    if ride.rating is not None:
+        return Response({'error': 'Already rated'}, status=400)
+
+    rating = request.data.get('rating')
+    review = request.data.get('review', '')
+
+    if not rating or int(rating) < 1 or int(rating) > 5:
+        return Response({'error': 'Rating must be between 1 and 5'}, status=400)
+
+    ride.rating = rating
+    ride.review = review
+    ride.save()
+
+    return Response({'message': 'Rating submitted successfully'})
+
