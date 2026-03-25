@@ -9,7 +9,7 @@ from auth_app.models import Driver
 from auth_app.serializers import UserSerializer, DriverSerializer
 
 from .forms import RideForm
-from .serializers import RideSerializer, HistorySerializer
+from .serializers import RideSerializer, HistorySerializer,ReceiptSerializer
 from .models import Ride
 
 from django.db.models import Q
@@ -17,6 +17,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 
 import requests  # needed for location API
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import BytesIO
 
 # ----------------------------------------------------------------------------- Profle view
 
@@ -327,3 +333,67 @@ def review(request, ride_id):
 
     return Response({'message': 'Rating submitted successfully'})
 
+
+
+# ----------------------------------------------------------------------------- receipt
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def ride_receipt(request, ride_id):
+    user = request.user
+
+    try:
+        
+        ride = Ride.objects.get(id=ride_id, user=user)
+
+    except Ride.DoesNotExist:
+        return Response(
+            {"error": "Ride not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    if ride.status != 'completed':
+        return Response(
+            {"error": "Receipt available only for completed rides"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    serializer = ReceiptSerializer(ride)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+    
+# ----------------------------------------------------------------------------- pdf
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def download_receipt(request, ride_id):
+
+    user = request.user
+
+    ride = get_object_or_404(Ride, id=ride_id, user=user)
+
+    if ride.status != 'completed':
+        return HttpResponse("Receipt available only for completed rides", status=400)
+
+    # Load HTML template
+    template = get_template('receipt_pdf.html')
+
+    # Send ride data to template
+    html = template.render({
+        'ride': ride
+    })
+
+    # Create PDF
+    buffer = BytesIO()
+    pisa_status = pisa.CreatePDF(html, dest=buffer)
+
+    # Error handling
+    if pisa_status.err:
+        return HttpResponse('PDF creation error!', status=500)
+
+    # Return PDF response
+    response = HttpResponse(buffer.getvalue(), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="ride_{ride.id}.pdf"'
+
+    return response

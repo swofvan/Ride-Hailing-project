@@ -16,4 +16,6 @@ urlpatterns = [
 
     path('current_ride/', views.current_ride, name='current_ride'),
     path('review/<int:ride_id>/', views.review, name='review'),
+    path('receipt/<int:ride_id>/', views.ride_receipt, name='ride_reciept'),
+    path('download_receipt/<int:ride_id>/', views.download_receipt, name='download_receipt'),
 ]

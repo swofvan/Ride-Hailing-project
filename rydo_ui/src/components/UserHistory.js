@@ -58,15 +58,15 @@ function UserHistory() {
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-white rounded-md border border-gray-100 shadow-sm p-4">
               <p className="text-xs text-gray-400 mb-1">Total Rides</p>
-              <p className="text-2xl font-bold text-zinc-900">{rides.length}</p>
+              <p className="md:text-2xl text-xl font-bold text-zinc-900">{rides.length}</p>
             </div>
             <div className="bg-white rounded-md border border-gray-100 shadow-sm p-4">
               <p className="text-xs text-gray-400 mb-1">Total Amount</p>
-              <p className="text-2xl font-bold text-zinc-900">₹ {totalFare}</p>
+              <p className="md:text-2xl text-xl font-bold text-zinc-900">₹ {totalFare}</p>
             </div>
             <div className="bg-white rounded-md border border-gray-100 shadow-sm p-4">
               <p className="text-xs text-gray-400 mb-1">Km Covered</p>
-              <p className="text-2xl font-bold text-zinc-900">{totalKm}</p>
+              <p className="md:text-2xl text-xl font-bold text-zinc-900">{totalKm}</p>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ function UserHistory() {
               <div>Distance</div>
               <div>Fare</div>
               <div>Type</div>
-              <div>Status</div>
+              <div></div>
               <div></div>
             </div>
 
@@ -104,7 +104,12 @@ function UserHistory() {
                     {ride.ride_type}
                   </div>
                   <div>
-                    <span className={statusClass(ride.status)}>{ride.status}</span>
+                   <Link
+                      to={`/receipt/${ride.id}`}
+                      className="inline-flex justify-center items-center gap-1 text-m font-medium text-zinc-900 bg-transparent border border-zinc-900 hover:bg-zinc-900 hover:text-white px-3 py-1.5 rounded transition"
+                    >
+                      Receipt
+                    </Link>
                   </div>
                   <div>
                     {ride.rating != null ? (
@@ -144,7 +149,6 @@ function UserHistory() {
                       <span className="text-xs font-medium uppercase text-zinc-600 bg-gray-100 px-2 py-1 rounded">
                         {ride.ride_type}
                       </span>
-                      <span className={statusClass(ride.status)}>{ride.status}</span>
                     </div>
                   </div>
 
@@ -171,6 +175,12 @@ function UserHistory() {
                       <p className="font-bold text-gray-800">₹ {ride.fare}</p>
                     </div>
                   </div>
+                  <Link
+                    to={`/receipt/${ride.id}`}
+                    className="flex-1 inline-flex justify-center items-center gap-1 text-xs font-medium text-zinc-900 bg-transparent border border-zinc-900 hover:bg-zinc-900 hover:text-white px-3 py-1.5 rounded transition"
+                  >
+                    Receipt
+                  </Link>
                   {ride.rating != null ? (
                     <span className="inline-flex justify-center items-center text-xs font-semibold text-green-700 bg-green-100 px-3 py-1.5 rounded">
                       Review saved

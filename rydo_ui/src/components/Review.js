@@ -79,48 +79,45 @@ function Review() {
             
                     {/* Header */}
                     <div className="text-center mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">Rate Your Ride</h2>
-                    <p className="text-gray-400 text-sm mt-1">How was your ride?</p>
+                        <h2 className="text-2xl font-bold text-gray-800">Rate Your Ride</h2>
+                        <p className="text-gray-400 text-sm mt-1">How was your ride?</p>
                     </div>
             
                     {/* Stars */}
                     <div className="flex justify-center gap-2 mb-6">
-                    {[1, 2, 3, 4, 5].map((star) => (
+                        {[1, 2, 3, 4, 5].map((star) => (
                         <button
-                        key={star}
-                        onClick={() => setRating(star)}
-                        onMouseEnter={() => setHovered(star)}
-                        onMouseLeave={() => setHovered(0)}
-                        className="text-3xl transition-transform hover:scale-110"
-                        style={{ background: "none", border: "none", cursor: "pointer" }}
+                            key={star}
+                            onClick={() => setRating(star)}
+                            onMouseEnter={() => setHovered(star)}
+                            onMouseLeave={() => setHovered(0)}
+                            className="text-3xl transition-transform hover:scale-110"
+                            style={{ background: "none", border: "none", cursor: "pointer" }}
                         >
-                        {/* <span className={star <= (hovered || rating) ? "text-yellow-400" : "text-gray-200"}>
-                            ★
-                        </span> */}
                             <span className={star <= (hovered || rating) ? "text-yellow-400" : "text-gray-200"}>
                                 <FaStar />
                             </span>
                         </button>
-                    ))}
+                        ))}
                     </div>
             
                     {/* Textarea */}
                     <textarea
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    placeholder="Write a comment"
-                    rows={3}
-                    className="w-full border border-gray-200 rounded-xl p-3 text-sm text-gray-700 resize-none focus:outline-none focus:border-blue-400 mb-4"
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        placeholder="Write a comment"
+                        rows={3}
+                        className="w-full border border-gray-200 rounded-xl p-3 text-sm text-gray-700 resize-none focus:outline-none focus:border-blue-400 mb-4"
                     />
             
                     {/* Submit Button */}
                     <button
-                    onClick={ handleSubmit }
-                    className={`w-full py-3 rounded-xl text-white font-semibold text-sm transition-opacity ${
-                        rating > 0 ? "bg-zinc-900 hover:bg-zinc-700" : "bg-zinc-300 cursor-not-allowed"
-                    }`}
+                        onClick={ handleSubmit }
+                        className={`w-full py-3 rounded-xl text-white font-semibold text-sm transition-opacity ${
+                            rating > 0 ? "bg-zinc-900 hover:bg-zinc-700" : "bg-zinc-300 cursor-not-allowed"
+                        }`}
                     >
-                    Submit Review
+                        Submit Review
                     </button>
             
                 </div>

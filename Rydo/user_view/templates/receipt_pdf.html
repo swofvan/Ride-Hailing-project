@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .divider {
+
+            margin: 15px 0;
+        }
+
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="title">Ride Receipt</div>
+            <div>Thank you for riding with us</div>
+        </div>
+
+        <div class="section">
+            <div class="row">
+                <span class="label">Ride ID:</span>
+                <span>{{ ride.id }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Date:</span>
+                <span>{{ ride.created_at }}</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <div class="row">
+                <span class="label">Passenger:</span>
+                <span>{{ ride.user.name }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Driver:</span>
+                <span>{{ ride.driver.user.name }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Vehicle:</span>
+                <span>{{ ride.driver.vehicle_number }}</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <div class="row">
+                <span class="label">Pickup:</span>
+                <span>{{ ride.pickup_location }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Drop:</span>
+                <span>{{ ride.drop_location }}</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <div class="row">
+                <span class="label">Fare:</span>
+                <span>₹{{ ride.fare }}</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="total">
+            Total Paid: ₹{{ ride.fare }}
+        </div>
+
+    </div>
+</body>
+</html>
