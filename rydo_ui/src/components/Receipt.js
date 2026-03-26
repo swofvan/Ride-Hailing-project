@@ -51,7 +51,7 @@ function Receipt() {
         responseType: "blob", // Gets PDF as file, Sends JWT properly, Forces download in browser
       })
       .then((response) => {
-        // ✅ EDITED: create file download
+        // create file download
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
 
@@ -112,7 +112,6 @@ function Receipt() {
  
               <div className="p-6 space-y-6">
  
-                {/* Driver Info */}
                 <div className="bg-zinc-50 rounded-xl p-4 flex items-center gap-4">
                   <div className="bg-zinc-900 text-white w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold shrink-0">
                     {ride.driver_name ? ride.driver_name.charAt(0) : "D"}
@@ -127,7 +126,6 @@ function Receipt() {
                   </div>
                 </div>
  
-                {/* Route */}
                 <div className="space-y-3">
  
                   <div className="flex items-start gap-3">
@@ -150,7 +148,6 @@ function Receipt() {
  
                 </div>
  
-                {/* Distance */}
                 <div className="flex gap-3">
                   <div className="flex-1 bg-zinc-50 rounded-xl p-3 text-center">
                     <p className="text-xs text-zinc-400 mb-1">Distance</p>
@@ -158,7 +155,6 @@ function Receipt() {
                   </div>
                 </div>
  
-                {/* Fare */}
                 <div>
                   <h3 className="text-xs text-zinc-400 uppercase tracking-wide mb-3">Fare</h3>
                   <div className="flex justify-between font-bold text-zinc-900 text-base">
@@ -166,8 +162,7 @@ function Receipt() {
                     <span>₹{ride.fare}</span>
                   </div>
                 </div>
- 
-                {/* Download Button */}
+
                 <button
                     onClick = {() => handleDownload(ride.id)}
                     className="w-full bg-zinc-900 hover:bg-zinc-700 text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition duration-200">
