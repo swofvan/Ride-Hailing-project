@@ -48,6 +48,9 @@ function Login() {
       .then(response => {
         setErrorMessage('');
 
+        
+        console.log(response.data)
+
         const accessToken = response.data?.access;
         const refreshToken = response.data?.refresh;
 
@@ -55,21 +58,16 @@ function Login() {
           setErrorMessage("Login response did not return tokens");
           return;
         }
+
+        const isAdmin = response.data?.is_superuser;
+          if (isAdmin) {
+            window.location.href = "http://127.0.0.1:8000/";
+            return;
+          }
   
-        // localStorage.setItem("access", accessToken);
         localStorage.setItem("refresh", refreshToken);
 
-        // dispatch(setUser({email:email}));
-
-        // if (!accessToken) {
-        //   setErrorMessage("Login response did not return access token");
-        //   return;
-        // }
-
         dispatch(setUser(accessToken));
-
-
-        // navigate("/");
 
         setShowSuccess(true);
 

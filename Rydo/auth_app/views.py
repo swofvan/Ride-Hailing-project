@@ -82,6 +82,7 @@ def login(request):
         "message": "Login success",
         "access": str(refresh.access_token),
         "refresh": str(refresh),
+        "is_superuser": user.is_superuser,
     }, status=200)
 
 

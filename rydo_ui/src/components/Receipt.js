@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaDownload, FaArrowLeft, FaCar, FaMapMarkerAlt, FaFlag } from "react-icons/fa";
+import { FaDownload, FaArrowLeft, FaMapMarkerAlt, FaFlag } from "react-icons/fa";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import logo from "../images/Rydo_logo_w.svg";
