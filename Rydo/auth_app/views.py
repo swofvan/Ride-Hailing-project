@@ -12,6 +12,9 @@ from .serializers import UserSerializer, DriverSerializer
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 
 # ------------------------------------------------------------------------------- User signup
 
@@ -113,3 +116,8 @@ def logout(request):
             {"error": "Invalid token"},
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+def admin_logout(request):
+    logout(request)           
+    return redirect("http://localhost:3000/")
