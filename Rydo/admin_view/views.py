@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -15,10 +15,12 @@ from user_view.models import Ride
 from django.db.models import Sum
 
 from user_view.models import Ride 
-# from django.contrib.auth.decorators import user_passes_test 
-# from rest_framework.decorators import permission_classes
-# from rest_framework.permissions import BasePermission
-from django.http import HttpResponseForbidden
+
+# from django.http import HttpResponseForbidden
+from django.http import HttpResponse
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.exceptions import AuthenticationFailed
 
 
 # def is_admin(user):
@@ -32,25 +34,43 @@ from django.http import HttpResponseForbidden
 #             request.user.is_superuser
 #         )
 
-def superuser_required(view_func):
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_superuser:
-            return HttpResponseForbidden("You are not allowed here")
-        return view_func(request, *args, **kwargs)
-    return wrapper
+# def superuser_required(view_func):
+#     def wrapper(request, *args, **kwargs):
+#         if not request.user.is_authenticated or not request.user.is_superuser:
+#             return HttpResponseForbidden("You are not allowed here")
+#         return view_func(request, *args, **kwargs)
+#     return wrapper
 
 
-# ----------------------------------------------------------------------------- users list
+# def admin_only(request):
+#     print("USER OBJECT :", request.user)
+#     print("IS AUTHENTICATED :", request.user.is_authenticated)
+#     print("IS SUPERUSER :", request.user.is_superuser)
+#     print("IS STAFF :", request.user.is_staff)
+#     if not request.user.is_authenticated or not request.user.is_superuser:
+#         return render(request, '403.html', status=403)
+         
+#     return redirect('rides_list')
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
-def users_list(request):
+def admin_only(request):
+    token = request.GET.get("token")
+    if token:
+        request.META['HTTP_AUTHORIZATION'] = f'Token {token}'
 
     print("USER OBJECT :", request.user)
     print("IS AUTHENTICATED :", request.user.is_authenticated)
     print("IS SUPERUSER :", request.user.is_superuser)
     print("IS STAFF :", request.user.is_staff)
+
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return HttpResponse("Admin only", status=403)
+
+    return redirect('rides_list')
+
+# ----------------------------------------------------------------------------- users list
+
+
+def users_list(request):
 
     search = request.GET.get('search', '').strip()
 
@@ -77,9 +97,7 @@ def users_list(request):
 
 # ----------------------------------------------------------------------------- disable user
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def disable_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -91,9 +109,7 @@ def disable_user(request, user_id):
 
 # ----------------------------------------------------------------------------- enable user
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def enable_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -105,9 +121,7 @@ def enable_user(request, user_id):
 
 # ----------------------------------------------------------------------------- delete user
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -119,9 +133,7 @@ def delete_user(request, user_id):
 
 # ------------------------------------------------------------------------------ Drivers list
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def drivers_list(request):
 
     search = request.GET.get('search', '').strip()
@@ -149,9 +161,7 @@ def drivers_list(request):
 
 # ----------------------------------------------------------------------------- Approve driver
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def approve_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     
@@ -167,9 +177,7 @@ def approve_driver(request, driver_id):
 
 # ----------------------------------------------------------------------------- Reject driver
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def reject_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     
@@ -185,9 +193,7 @@ def reject_driver(request, driver_id):
 
 # ----------------------------------------------------------------------------- disable driver
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def disable_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
@@ -199,9 +205,7 @@ def disable_driver(request, driver_id):
 
 # ----------------------------------------------------------------------------- enable driver
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def enable_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
@@ -213,9 +217,7 @@ def enable_driver(request, driver_id):
 
 # ----------------------------------------------------------------------------- delete driver
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def delete_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
@@ -228,9 +230,7 @@ def delete_driver(request, driver_id):
 
 # ----------------------------------------------------------------------------- View All Bookings
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def ride_list(request):
     rides = Ride.objects.all().order_by('-created_at')
     
@@ -247,9 +247,7 @@ def ride_list(request):
 
 # ----------------------------------------------------------------------------- cancel Bookings
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def cancel_ride(request, ride_id):
     ride = get_object_or_404(Ride, id=ride_id)
 
@@ -261,9 +259,7 @@ def cancel_ride(request, ride_id):
 
 # ----------------------------------------------------------------------------- edit Bookings
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def edit_ride(request, ride_id):
     ride = get_object_or_404(Ride, id=ride_id)
 
@@ -282,9 +278,7 @@ def edit_ride(request, ride_id):
 
 # ----------------------------------------------------------------------------- review
 
-# @user_passes_test(is_admin)
-# @permission_classes([IsSuperUser])
-@superuser_required
+
 def review_list(request):
 
     reviews = (

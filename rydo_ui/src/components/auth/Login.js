@@ -60,10 +60,13 @@ function Login() {
         }
 
         const isAdmin = response.data?.is_superuser;
-          if (isAdmin) {
-            window.location.href = "http://127.0.0.1:8000/";
-            return;
-          }
+        // const token = localStorage.getItem("access");
+        const token = user.token;
+
+        if (isAdmin) {
+          window.location.href = `http://127.0.0.1:8000/admin-panel/?token=${token}`;
+          return;
+        }
   
         localStorage.setItem("refresh", refreshToken);
 

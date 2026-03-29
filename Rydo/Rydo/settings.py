@@ -61,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'admin_view.middleware.TokenToUserMiddleware',
 ]
 
 ROOT_URLCONF = 'Rydo.urls'

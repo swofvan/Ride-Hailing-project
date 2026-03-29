@@ -118,6 +118,8 @@ def logout(request):
         )
 
 
+# ------------------------------------------------------------------------  admin logout
+
 def admin_logout(request):
     logout(request)           
     return redirect("http://localhost:3000/")
