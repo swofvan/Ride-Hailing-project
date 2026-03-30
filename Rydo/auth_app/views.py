@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from django.contrib.auth import authenticate
 
 from .models import User, Driver
 from .forms import UserSignupForm, DriverSignupForm
@@ -12,7 +11,7 @@ from .serializers import UserSerializer, DriverSerializer
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login as rydo_login, logout as rydo_logout
 from django.shortcuts import redirect
 
 
@@ -66,6 +65,13 @@ def login(request):
 
     if not user:
         return Response({"error": "Invalid email or password"}, status=401)
+    
+    if user.is_superuser:
+        rydo_login(request._request, user)
+        return Response({
+            "message": "Admin login success",
+            "is_superuser": True,
+        }, status=200)
     
     try:
         driver = Driver.objects.get(user=user)
@@ -121,5 +127,5 @@ def logout(request):
 # ------------------------------------------------------------------------  admin logout
 
 def admin_logout(request):
-    logout(request)           
+    rydo_logout(request)           
     return redirect("http://localhost:3000/")

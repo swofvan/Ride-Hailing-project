@@ -44,27 +44,29 @@ function Login() {
     }
     
     
-    axios.post("http://127.0.0.1:8000/auth/login/", user)
+    axios.post("http://127.0.0.1:8000/auth/login/", user,
+      {
+        withCredentials: true
+      }
+    )
       .then(response => {
         setErrorMessage('');
 
         
         console.log(response.data)
 
+        const isAdmin = response.data?.is_superuser;
+
+        if (isAdmin) {
+          window.location.href = "http://127.0.0.1:8000/admin_panel/";
+          return;
+        }
+
         const accessToken = response.data?.access;
         const refreshToken = response.data?.refresh;
 
         if (!accessToken || !refreshToken) {
           setErrorMessage("Login response did not return tokens");
-          return;
-        }
-
-        const isAdmin = response.data?.is_superuser;
-        // const token = localStorage.getItem("access");
-        const token = user.token;
-
-        if (isAdmin) {
-          window.location.href = `http://127.0.0.1:8000/admin-panel/?token=${token}`;
           return;
         }
   
