@@ -13,7 +13,8 @@ function CurrentRide() {
     const token = localStorage.getItem("access");
 
     axios.get(
-      "http://127.0.0.1:8000/user/current_ride/",
+      // "http://127.0.0.1:8000/user/current_ride/",
+      "http://localhost:8000/user/current_ride/",
       {
         headers: {
           Authorization: `Bearer ${token}`,

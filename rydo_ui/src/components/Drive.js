@@ -26,7 +26,8 @@ function RideBookingList() {
     const token = localStorage.getItem("access");
 
     axios.get(
-      `http://127.0.0.1:8000/user/ride_requests/?search=${encodeURIComponent(searchValue)}&page=${pageValue}`,
+      // `http://127.0.0.1:8000/user/ride_requests/?search=${encodeURIComponent(searchValue)}&page=${pageValue}`,
+      `http://localhost:8000/user/ride_requests/?search=${encodeURIComponent(searchValue)}&page=${pageValue}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -56,7 +57,8 @@ function RideBookingList() {
     const token = localStorage.getItem("access");
 
     axios.post(
-      `http://127.0.0.1:8000/user/ride-accept/${id}/`,
+      // `http://127.0.0.1:8000/user/ride-accept/${id}/`,
+      `http://localhost:8000/user/ride-accept/${id}/`,
       {},
       {
         headers: {

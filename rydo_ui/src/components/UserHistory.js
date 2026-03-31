@@ -15,8 +15,9 @@ function UserHistory() {
 
   useEffect(() => {
     const token = localStorage.getItem("access");
-    axios
-      .get("http://127.0.0.1:8000/user/history/", {
+    
+    // axios.get("http://127.0.0.1:8000/user/history/", {
+    axios.get("http://localhost:8000/user/history/", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setRides(res.data))

@@ -19,8 +19,8 @@ function Receipt() {
   useEffect(() => {
     const token = localStorage.getItem("access");
 
-    axios
-      .get(`http://127.0.0.1:8000/user/receipt/${rideId}/`, {
+    // axios.get(`http://127.0.0.1:8000/user/receipt/${rideId}/`, {
+    axios.get(`http://localhost:8000/user/receipt/${rideId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +44,8 @@ function Receipt() {
   const handleDownload = (rideId) => {
     const token = localStorage.getItem("access");
 
-    axios.get(`http://127.0.0.1:8000/user/download_receipt/${rideId}/`, {
+    // axios.get(`http://127.0.0.1:8000/user/download_receipt/${rideId}/`, {
+    axios.get(`http://localhost:8000/user/download_receipt/${rideId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

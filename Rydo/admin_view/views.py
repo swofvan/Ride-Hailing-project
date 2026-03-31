@@ -16,25 +16,28 @@ from user_view.models import Ride
 
 from django.contrib.auth.decorators import user_passes_test
 
-# from rest_framework.permissions import BasePermission
 
-# class IsSuperUser(BasePermission):
-#     def has_permission(self, request, view):
-#         return (
-#             request.user and
-#             request.user.is_authenticated and
-#             request.user.is_superuser
-#         )
+# def superuser_required(view_func):
+#     def check_superuser(user):
+#         return user.is_authenticated and user.is_superuser
 
-def IsSuperUser(user):
-    return user.is_authenticated and user.is_superuser
+#     decorated_view = user_passes_test(
+#         check_superuser,
+#         login_url='http://localhost:3000/login'
+#     )(view_func)
 
+#     return decorated_view
 
-
+def superuser_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            return redirect("http://localhost:3000/login")
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 # ----------------------------------------------------------------------------- users list
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def users_list(request):
 
     search = request.GET.get('search', '').strip()
@@ -62,7 +65,7 @@ def users_list(request):
 
 # ----------------------------------------------------------------------------- disable user
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def disable_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -74,7 +77,7 @@ def disable_user(request, user_id):
 
 # ----------------------------------------------------------------------------- enable user
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def enable_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -86,7 +89,7 @@ def enable_user(request, user_id):
 
 # ----------------------------------------------------------------------------- delete user
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -98,7 +101,7 @@ def delete_user(request, user_id):
 
 # ------------------------------------------------------------------------------ Drivers list
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def drivers_list(request):
 
     search = request.GET.get('search', '').strip()
@@ -127,7 +130,7 @@ def drivers_list(request):
 # ----------------------------------------------------------------------------- Approve driver
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def approve_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     
@@ -144,7 +147,7 @@ def approve_driver(request, driver_id):
 # ----------------------------------------------------------------------------- Reject driver
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def reject_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
     
@@ -161,7 +164,7 @@ def reject_driver(request, driver_id):
 # ----------------------------------------------------------------------------- disable driver
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def disable_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
@@ -174,7 +177,7 @@ def disable_driver(request, driver_id):
 # ----------------------------------------------------------------------------- enable driver
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def enable_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
@@ -187,7 +190,7 @@ def enable_driver(request, driver_id):
 # ----------------------------------------------------------------------------- delete driver
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def delete_driver(request, driver_id):
     driver = get_object_or_404(Driver, id=driver_id)
 
@@ -201,7 +204,7 @@ def delete_driver(request, driver_id):
 # ----------------------------------------------------------------------------- View All Bookings
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def ride_list(request):
     rides = Ride.objects.all().order_by('-created_at')
     
@@ -219,7 +222,7 @@ def ride_list(request):
 # ----------------------------------------------------------------------------- cancel Bookings
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def cancel_ride(request, ride_id):
     ride = get_object_or_404(Ride, id=ride_id)
 
@@ -232,7 +235,7 @@ def cancel_ride(request, ride_id):
 # ----------------------------------------------------------------------------- edit Bookings
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def edit_ride(request, ride_id):
     ride = get_object_or_404(Ride, id=ride_id)
 
@@ -252,7 +255,7 @@ def edit_ride(request, ride_id):
 # ----------------------------------------------------------------------------- review
 
 
-@user_passes_test(IsSuperUser)
+@superuser_required
 def review_list(request):
 
     reviews = (

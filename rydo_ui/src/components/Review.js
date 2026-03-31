@@ -16,17 +16,6 @@ function Review() {
     const [review, setReview] = useState("");
     const [hovered, setHovered] = useState(0);
 
-
-    // ⭐ handle rating
-    // const handleRating = (value) => {
-    //     setRating(value);
-    // };
-
-    // // 📝 handle review
-    // const handleReviewChange = (e) => {
-    //     setReview(e.target.value);
-    // };
-
     const handleSubmit = () => {
 
         if (rating === 0) {
@@ -41,8 +30,8 @@ function Review() {
             return;
         }
 
-        axios.post(
-            `http://127.0.0.1:8000/user/review/${rideId}/`,
+        // axios.post(`http://127.0.0.1:8000/user/review/${rideId}/`,\
+        axios.post(`http://localhost:8000/user/review/${rideId}/`,
             {
                 rating: rating,
                 review: review

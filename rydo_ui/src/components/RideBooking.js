@@ -121,8 +121,8 @@ function RideBooking() {
 
     const token = localStorage.getItem("access");
 
-    axios.post(
-      "http://127.0.0.1:8000/user/ride_booking/",
+    // axios.post("http://127.0.0.1:8000/user/ride_booking/",
+    axios.post("http://localhost:8000/user/ride_booking/",
       {
         pickup_lat: parseFloat(pickupLat),
         pickup_lng: parseFloat(pickupLng),

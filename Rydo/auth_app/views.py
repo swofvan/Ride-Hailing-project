@@ -72,6 +72,10 @@ def login(request):
             "message": "Admin login success",
             "is_superuser": True,
         }, status=200)
+
+    # if user.is_superuser:
+    #     rydo_login(request._request, user)
+    #     return redirect('/admin_panel/')
     
     try:
         driver = Driver.objects.get(user=user)

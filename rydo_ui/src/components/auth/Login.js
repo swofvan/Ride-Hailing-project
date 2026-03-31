@@ -44,7 +44,8 @@ function Login() {
     }
     
     
-    axios.post("http://127.0.0.1:8000/auth/login/", user,
+    // axios.post("http://127.0.0.1:8000/auth/login/", user,
+    axios.post("http://localhost:8000/auth/login/", user,
       {
         withCredentials: true
       }
@@ -58,7 +59,8 @@ function Login() {
         const isAdmin = response.data?.is_superuser;
 
         if (isAdmin) {
-          window.location.href = "http://127.0.0.1:8000/admin_panel/";
+          // window.location.href = "http://127.0.0.1:8000/admin_panel/";
+          window.location.href = "http://localhost:8000/admin_panel/";
           return;
         }
 

@@ -19,7 +19,8 @@ function CurrentDrive() {
     const token = localStorage.getItem("access");
 
     axios.get(
-      "http://127.0.0.1:8000/user/current_drive/",
+      // "http://127.0.0.1:8000/user/current_drive/",
+      "http://localhost:8000/user/current_drive/",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +47,8 @@ function CurrentDrive() {
     const token = localStorage.getItem("access");
 
     axios.post(
-      `http://127.0.0.1:8000/user/ride-cancel/${id}/`,
+      // `http://127.0.0.1:8000/user/ride-cancel/${id}/`,
+      `http://localhost:8000/user/ride-cancel/${id}/`,
       {},
       {
         headers: {
@@ -68,7 +70,8 @@ function CurrentDrive() {
     const token = localStorage.getItem("access");
 
     axios.post(
-      `http://127.0.0.1:8000/user/ride-complete/${id}/`,
+      // `http://127.0.0.1:8000/user/ride-complete/${id}/`,
+      `http://localhost:8000/user/ride-complete/${id}/`,
       {},
       {
         headers: {

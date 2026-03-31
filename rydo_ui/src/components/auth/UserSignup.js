@@ -59,7 +59,8 @@ function UserSignUp() {
         password2: confirmPassword
     }
     
-    axios.post("http://127.0.0.1:8000/auth/user_signup/", user)
+    // axios.post("http://127.0.0.1:8000/auth/user_signup/", user)
+    axios.post("http://localhost:8000/auth/user_signup/", user)
       .then(response => {
 
         setErrorMessage('');

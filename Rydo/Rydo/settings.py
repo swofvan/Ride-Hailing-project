@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-7_s7(9**i*evnb8y8g*om)6k1)o&2fm%_)ejg$9$!kn4q9+g89
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -164,6 +166,12 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-# LOGIN_URL = '/admin/login/'
-LOGIN_URL = 'http://localhost:3000/login'
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login/'
+
+
+# -------------------------------------------------------------------------------- session login for admin
+
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SECURE = False
