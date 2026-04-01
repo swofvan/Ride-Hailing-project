@@ -229,31 +229,6 @@ def complete_ride(request, ride_id):
 
 # ----------------------------------------------------------------------------- user history
 
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def user_history(request):
-
-#     user = request.user
-
-#     try:
-#         driver = Driver.objects.get(user=user)
-
-#         rides = Ride.objects.filter(
-#             driver=driver,
-#             status__in=['completed', 'cancelled']
-#         ).order_by('-created_at')
-
-#     except Driver.DoesNotExist:
-
-#         rides = Ride.objects.filter(
-#             user=user,
-#             status__in=['completed', 'cancelled']
-#         ).order_by('-created_at')
-
-#     serializer = HistorySerializer(rides, many=True)
-
-#     return Response(serializer.data)
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_history(request):
