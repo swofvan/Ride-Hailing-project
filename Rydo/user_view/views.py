@@ -239,18 +239,18 @@ def user_history(request):
         # check if this user has a Driver profile
         Driver.objects.get(user=user)
 
-        # if driver exists, get rides where this user is the driver
         rides = Ride.objects.filter(
             driver=user,
-            status__in=['completed', 'cancelled']
+            status__in=['completed']
         ).order_by('-created_at')
+
 
     except Driver.DoesNotExist:
 
         # otherwise get rides where this user is the passenger
         rides = Ride.objects.filter(
             user=user,
-            status__in=['completed', 'cancelled']
+            status__in=['completed']
         ).order_by('-created_at')
 
     serializer = HistorySerializer(rides, many=True)
@@ -266,14 +266,40 @@ def user_history(request):
 def current_ride(request):
 
     ride = Ride.objects.filter(
-        user=request.user
-    ).exclude(
-        status__in=['completed', 'cancelled']
-    ).order_by('-created_at').first()          # cunvert many to one ride
+        user=request.user,
+        status__in=['pending', 'accepted']
+    ).order_by('-created_at').first()
+
+    if not ride:
+        return Response(
+            {"message": "No active ride"},
+            status=404
+        )
 
     serializer = RideSerializer(ride)
     return Response(serializer.data)
-    
+
+
+
+# ----------------------------------------------------------------------------- Cancel Ride (for users)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def cancel_ride_user(request, ride_id):
+
+    try:
+        ride = Ride.objects.get(id=ride_id, user=request.user)
+
+        if ride.status in ['completed', 'cancelled']:
+            return Response({"message": "Ride cannot be cancelled"}, status=400)
+
+        ride.status = 'cancelled'
+        ride.save()
+
+        return Response({"message": "Ride cancelled successfully"})
+
+    except Ride.DoesNotExist:
+        return Response({"message": "Ride not found"}, status=404) 
 
 
 # ----------------------------------------------------------------------------- review

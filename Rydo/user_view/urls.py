@@ -15,6 +15,8 @@ urlpatterns = [
     path('history/', views.user_history, name='user_history'),
 
     path('current_ride/', views.current_ride, name='current_ride'),
+    path('ride_cancel_user/<int:ride_id>/', views.cancel_ride_user),
+
     path('review/<int:ride_id>/', views.review, name='review'),
     path('receipt/<int:ride_id>/', views.ride_receipt, name='ride_reciept'),
     path('download_receipt/<int:ride_id>/', views.download_receipt, name='download_receipt'),

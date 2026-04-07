@@ -14,6 +14,7 @@ class Ride(models.Model):
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
         ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
     )
 
     user = models.ForeignKey(

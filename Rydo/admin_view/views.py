@@ -17,17 +17,6 @@ from user_view.models import Ride
 from django.contrib.auth.decorators import user_passes_test
 
 
-# def superuser_required(view_func):
-#     def check_superuser(user):
-#         return user.is_authenticated and user.is_superuser
-
-#     decorated_view = user_passes_test(
-#         check_superuser,
-#         login_url='http://localhost:3000/login'
-#     )(view_func)
-
-#     return decorated_view
-
 def superuser_required(view_func):
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_superuser:

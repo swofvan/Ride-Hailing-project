@@ -73,10 +73,6 @@ def login(request):
             "is_superuser": True,
         }, status=200)
 
-    # if user.is_superuser:
-    #     rydo_login(request._request, user)
-    #     return redirect('/admin_panel/')
-    
     try:
         driver = Driver.objects.get(user=user)
 
@@ -101,31 +97,50 @@ def login(request):
 
 # ------------------------------------------------------------------------   login
 
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def logout(request):
+#     try:
+#         refresh_token = request.data.get("refresh")
+
+#         if not refresh_token:
+#             return Response(
+#                 {"error": "Refresh token is required"},
+#                 status=status.HTTP_400_BAD_REQUEST
+#             )
+
+#         token = RefreshToken(refresh_token)
+#         token.blacklist()
+
+#         return Response(
+#             {"message": "Logout successful"},
+#             status=status.HTTP_205_RESET_CONTENT
+#         )
+
+#     except Exception:
+#         return Response(
+#             {"error": "Invalid token"},
+#             status=status.HTTP_400_BAD_REQUEST
+#         )
+
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def logout(request):
+    refresh_token = request.data.get("refresh")
+    print("LOGOUT VIEW HIT")
+
     try:
-        refresh_token = request.data.get("refresh")
-
-        if not refresh_token:
-            return Response(
-                {"error": "Refresh token is required"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        token = RefreshToken(refresh_token)
-        token.blacklist()
-
-        return Response(
-            {"message": "Logout successful"},
-            status=status.HTTP_205_RESET_CONTENT
-        )
-
+        if refresh_token:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
     except Exception:
-        return Response(
-            {"error": "Invalid token"},
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        # Token already blacklisted or invalid — ignore
+        pass
+
+    return Response(
+        {"message": "Logout successful"},
+        status=status.HTTP_200_OK
+    )
 
 
 # ------------------------------------------------------------------------  admin logout

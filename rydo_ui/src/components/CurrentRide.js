@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
+import checkAuth from "./auth/checkAuth";
 
 function CurrentRide() {
 
@@ -39,6 +40,28 @@ function CurrentRide() {
   useEffect(() => {
     fetchRide();
   }, []);
+
+  
+  function handleCancel() {
+    const token = localStorage.getItem("access");
+
+    axios.post(
+      `http://localhost:8000/user/ride_cancel_user/${ride.id}/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then(() => {
+      alert("Ride cancelled successfully");
+      setRide(null);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
 
 
   return (
@@ -149,6 +172,15 @@ function CurrentRide() {
                 </div>
               </div>
 
+              <div className="pt-3">
+                <button
+                  onClick={handleCancel}
+                  className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-md text-sm transition duration-200"
+                >
+                  Cancel Ride
+                </button>
+              </div>
+
             </div>
           )}
 
@@ -160,4 +192,4 @@ function CurrentRide() {
   );
 }
 
-export default CurrentRide;
+export default checkAuth(CurrentRide);

@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { removeUser } from "../store/authSlice";
 import { useState } from "react";
 
-import checkAuth from "./checkAuth";
-
 import { FaCheckCircle } from "react-icons/fa";
 
 function Logout() {
@@ -20,8 +18,10 @@ function Logout() {
         const refreshToken = localStorage.getItem("refresh");
         const accessToken = localStorage.getItem("access");
 
+        setShowSuccess(true);
+
         axios.post(
-            "http://127.0.0.1:8000/auth/logout/",
+            "http://localhost:8000/auth/logout/",
             {
                 refresh: refreshToken
             },
@@ -31,26 +31,34 @@ function Logout() {
                 },
             }
         )
-        .then(() => {
-            localStorage.removeItem("access");
-            localStorage.removeItem("refresh");
+        // .then(() => {
+        //     localStorage.removeItem("access");
+        //     localStorage.removeItem("refresh");
 
-            dispatch(removeUser());
-            // navigate("/login");
+        //     dispatch(removeUser());
+        //     // navigate("/login");
             
-            setShowSuccess(true);
+        //     setShowSuccess(true);
 
-            setTimeout(() => {
-            navigate("/login");
-            }, 3000);
-            })
+        //     setTimeout(() => {
+        //     navigate("/login");
+        //     }, 3000);
+        //     })
 
         .catch(() => {
-            localStorage.removeItem("access");
-            localStorage.removeItem("refresh");
-            dispatch(removeUser());
-            navigate("/login");
+            // localStorage.removeItem("access");
+            // localStorage.removeItem("refresh");
+            // dispatch(removeUser());
+            // navigate("/login");
         });
+
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+        dispatch(removeUser());
+
+        setTimeout(() => {
+            navigate("/login");
+        }, 2000);
     };
 
     return (
@@ -100,4 +108,4 @@ function Logout() {
 }
 
 
-export default checkAuth(Logout);
+export default Logout;
