@@ -3,13 +3,13 @@ from django.shortcuts import render
 # Create your views here.
 
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from auth_app.models import Driver
 from auth_app.serializers import UserSerializer, DriverSerializer
 
 from .forms import RideForm
-from .serializers import RideSerializer, HistorySerializer,ReceiptSerializer
+from .serializers import RideSerializer, HistorySerializer, ReceiptSerializer, GetReviewSerializer 
 from .models import Ride
 
 from django.db.models import Q
@@ -23,6 +23,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import BytesIO
+
+
 
 # ----------------------------------------------------------------------------- Profle view
 
@@ -334,6 +336,25 @@ def review(request, ride_id):
 
     return Response({'message': 'Rating submitted successfully'})
 
+
+
+# ----------------------------------------------------------------------------- get reviews
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_reviews(request):
+
+    rides = Ride.objects.filter(
+        status='completed',
+        rating__isnull=False
+    ).exclude(
+        review__isnull=True
+    ).exclude(
+        review=''
+    ).order_by('-created_at')
+
+    serializer = GetReviewSerializer(rides, many=True)
+    return Response(serializer.data)
 
 
 # ----------------------------------------------------------------------------- receipt

@@ -41,6 +41,16 @@ class HistorySerializer(serializers.ModelSerializer):
 
 # ----------------------------------------------------------------------------------------  User History
 
+class GetReviewSerializer(serializers.ModelSerializer):
+    user_name = serializers.CharField(source='user.name')
+
+    class Meta:
+        model = Ride
+        fields = ['user_name', 'rating', 'review']
+
+
+# ----------------------------------------------------------------------------------------  User History
+
 class ReceiptSerializer(serializers.ModelSerializer):
     
     driver_id = serializers.IntegerField(source='driver.id', read_only=True)

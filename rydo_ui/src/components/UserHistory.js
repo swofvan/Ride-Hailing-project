@@ -7,10 +7,8 @@ import { Link, useParams } from "react-router-dom";
 import { FaCheck  } from "react-icons/fa";
 
 
-
 function UserHistory() {
   const [rides, setRides] = useState([]);
-
   const { rideId } = useParams();
 
   useEffect(() => {
@@ -195,6 +193,7 @@ function UserHistory() {
                     Tap to rate
                   </Link>
                   )}
+
                 </div>
               ))
             )}

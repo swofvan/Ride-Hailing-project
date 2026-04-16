@@ -2,10 +2,37 @@ import homeimg2 from '../images/rydo_homeimg2.png'
 import phone from '../images/mobile.png'
 import cardriver from '../images/car_driver.jpeg'
 import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
-import { FaCar, FaCity, FaPlane, FaTags, FaHeadset, FaBolt, FaStar, FaUserTie, FaBroom } from "react-icons/fa";
+import { FaCar, FaCity, FaPlane, FaTags, FaHeadset, FaBolt, FaStar, FaUserTie, FaBroom, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function Home() {
+
+  const [reviews, setReviews] = useState([]);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/user/get_reviews")
+      .then(res => setReviews(res.data))
+      .catch(err => console.log(err));
+  }, []);
+
+  // scroll exactly one card width (so always 3 visible)
+  const scroll = (direction) => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const cardWidth = container.firstChild?.offsetWidth || 0;
+    const gap = 24; // gap-6 = 24px
+    const scrollAmount = cardWidth + gap;
+
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="w-full">
         <div
@@ -309,45 +336,59 @@ function Home() {
         </div>
       </div>
 
-      {/* Testimonials div */}
+      {/* review div */}
       <div className="py-16 px-4 bg-zinc-900 text-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Our Customer Reviews
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white text-black p-6 rounded-lg hover:scale-105 transition-transform duration-600">
-              <div className="flex gap-1 mb-4">
-                <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
-              </div>
-              <p className="mb-4">
-                "Excellent service! The driver was professional and the car was very clean. Highly recommended!"
-              </p>
-              <p className="font-bold">- Rahul Sharma</p>
-            </div>
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Our Customer Reviews
+        </h2>
 
-            <div className="bg-white text-black p-6 rounded-lg hover:scale-105 transition-transform duration-600">
-              <div className="flex gap-1 mb-4">
-                <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
-              </div>
-              <p className="mb-4">
-                "Very affordable rates and great customer service. Will definitely use again for my next trip."
-              </p>
-              <p className="font-bold">- Priya Singh</p>
-            </div>
+        <div className="relative">
+          {/* Left scroll button */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
+            aria-label="Scroll left"
+          >
+            <FaChevronLeft size={14} />
+          </button>
 
-            <div className="bg-white text-black p-6 rounded-lg hover:scale-105 transition-transform duration-600">
-              <div className="flex gap-1 mb-4">
-                <span className="text-yellow-500">⭐⭐⭐⭐⭐</span>
+          {/* Scroll container */}
+          <div
+            ref={scrollRef}
+            className="flex overflow-x-hidden gap-6 scroll-smooth w-full"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                className="bg-white text-black p-6 rounded-lg transition-transform duration-500 flex flex-col flex-shrink-0 w-[32%] min-h-[190px]"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <FaStar key={i} size={16} className="text-yellow-500" />
+                  ))}
+                </div>
+
+                <p className="mb-4">"{review.review}"</p>
+
+                <p className="font-bold mt-auto">- {review.user_name}</p>
               </div>
-              <p className="mb-4">
-                "Punctual and reliable. The driver reached on time and the journey was smooth and comfortable."
-              </p>
-              <p className="font-bold">- Amit Kumar</p>
-            </div>
+            ))}
           </div>
+
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
+            aria-label="Scroll right"
+          >
+            <FaChevronRight size={14} />
+          </button>
         </div>
       </div>
+    </div>
 
       {/* Call to Action div */}
       <div className="py-16 px-4 bg-white">
