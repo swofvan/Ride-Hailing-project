@@ -179,6 +179,7 @@ function Home() {
           <h2 className="text-3xl font-bold text-center mb-5 text-zinc-900">Flexible Taxi Fares</h2>
           <p className="text-center mb-12 w-full">At Rydo, we understand that every journey is unique, which is why we offer flexible and competitive rates tailored to your specific needs. Our pricing structure is designed to provide transparency, affordability, and value, ensuring that you receive the best service at a fair price.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
             {/* Basic Plan */}
             <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:bg-yellow-500 hover:transition-colors duration-300">
               <div className="bg-zinc-900 text-white text-center py-4">
@@ -212,7 +213,7 @@ function Home() {
             </div>
 
             {/* Premium Plan */}
-            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden transform scale-105 hover:bg-yellow-500 transition-colors duration-300">
+            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:bg-yellow-500 transition-colors duration-300">
               <div className="bg-zinc-900 text-white text-center py-4">
                 <h3 className="text-xl font-bold">Premium Ride</h3>
               </div>
@@ -337,14 +338,13 @@ function Home() {
       </div>
 
       {/* review div */}
-      <div className="py-16 px-4 bg-zinc-900 text-white">
+      {/* <div className="py-16 px-4 bg-zinc-900 text-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-12">
           Our Customer Reviews
         </h2>
 
         <div className="relative">
-          {/* Left scroll button */}
           <button
             onClick={() => scroll("left")}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
@@ -353,7 +353,6 @@ function Home() {
             <FaChevronLeft size={14} />
           </button>
 
-          {/* Scroll container */}
           <div
             ref={scrollRef}
             className="flex overflow-x-hidden gap-6 scroll-smooth w-full"
@@ -388,7 +387,60 @@ function Home() {
           </button>
         </div>
       </div>
-    </div>
+    </div> */}
+
+    {/* ====== EDITED: review div — made responsive ====== */}
+      <div className="py-16 px-4 bg-zinc-900 text-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Our Customer Reviews
+          </h2>
+
+          <div className="relative px-6">
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
+              aria-label="Scroll left"
+            >
+              <FaChevronLeft size={14} />
+            </button>
+
+            {/* ✏️ EDIT: card width changed from fixed w-[32%] to w-full on mobile, w-[32%] on md+ */}
+            <div
+              ref={scrollRef}
+              className="flex overflow-x-hidden gap-6 scroll-smooth w-full"
+              style={{ scrollSnapType: "x mandatory" }}
+            >
+              {reviews.map((review, index) => (
+                <div
+                  key={index}
+                  className="bg-white text-black p-6 rounded-lg transition-transform duration-500 flex flex-col flex-shrink-0 w-full md:w-[32%] min-h-[190px]"
+                  style={{ scrollSnapAlign: "start" }}
+                >
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <FaStar key={i} size={16} className="text-yellow-500" />
+                    ))}
+                  </div>
+
+                  <p className="mb-4">"{review.review}"</p>
+
+                  <p className="font-bold mt-auto">- {review.user_name}</p>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
+              aria-label="Scroll right"
+            >
+              <FaChevronRight size={14} />
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* ====== END EDIT ====== */}
 
       {/* Call to Action div */}
       <div className="py-16 px-4 bg-white">
