@@ -13,6 +13,7 @@ import UserHistory from "./components/UserHistory";
 import CurrentRide from "./components/CurrentRide";
 import Review from "./components/Review";
 import Receipt from "./components/Receipt";
+import AboutUs from "./components/AboutUs";
 
 const router = createBrowserRouter([
     { path: '', element: <App/> },
@@ -30,6 +31,8 @@ const router = createBrowserRouter([
     { path: 'current-ride', element: <CurrentRide/> },
     { path: 'review/:rideId', element: <Review/> },
     { path: '/receipt/:rideId', element: <Receipt/> },
+
+    {path: 'aboutus', element: <AboutUs/>},
     
 ]);
 

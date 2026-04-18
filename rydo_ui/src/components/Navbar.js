@@ -53,7 +53,7 @@ function Navbar() {
             </NavLink>
             
             <NavLink
-              to="#"
+              to="/aboutus"
               className={function(props) {
                 return props.isActive
                   ? "text-white border-b-2 border-blue-500 py-5 px-4 font-normal"
