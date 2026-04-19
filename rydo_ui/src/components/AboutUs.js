@@ -1,123 +1,118 @@
 import Navbar from "./Navbar";
 import Footer from "./footer";
 
-import {
-  FaCar, FaShieldAlt, FaBolt, FaMapMarkerAlt,
-  FaUsers, FaStar, FaRoad, FaGlobe,
-  FaCheckCircle, FaLinkedinIn, FaTwitter,
-  FaInstagram, FaArrowRight, FaMobileAlt,
-} from "react-icons/fa";
+import { FaCar, FaShieldAlt, FaBolt, FaMapMarkerAlt, FaUsers, FaStar, FaRoad, FaGlobe, FaCheckCircle, FaLinkedinIn, FaArrowRight, FaMobileAlt, } from "react-icons/fa";
+import groupimg from '../images/groupimg.jpeg';
+import { Link } from "react-router-dom";
 
-// ── Data ──────────────────────────────────────────────────────────
-
-const stats = [
-  { icon: FaUsers,        value: "2M+",  label: "Happy Riders"   },
-  { icon: FaCar,          value: "50K+", label: "Active Drivers"  },
-  { icon: FaRoad,         value: "10M+", label: "Trips Completed" },
-  { icon: FaGlobe,        value: "30+",  label: "Cities Covered"  },
-];
-
-const values = [
-  { icon: FaBolt,         title: "Speed",   desc: "Matched with your nearest driver in under 60 seconds, every time."         },
-  { icon: FaShieldAlt,    title: "Safety",  desc: "Every driver is background-verified. Live tracking keeps you secure."       },
-  { icon: FaStar,         title: "Quality", desc: "Our rating system ensures only top-rated drivers stay on the platform."     },
-  { icon: FaMapMarkerAlt, title: "Reach",   desc: "From city centres to suburbs — Ryder goes wherever you need to go."        },
-];
-
-const team = [
-  { name: "Marcus Reid",  role: "Founder & CEO",         initials: "MR" },
-  { name: "Layla Hassan", role: "Chief Product Officer",  initials: "LH" },
-  { name: "Dev Patel",    role: "Head of Engineering",    initials: "DP" },
-  { name: "Chloe Morgan", role: "Head of Operations",     initials: "CM" },
-];
-
-const milestones = [
-  { year: "2018", event: "Founded in a small garage with just 3 drivers and a big dream." },
-  { year: "2019", event: "Launched in 5 cities. Crossed 100K rides in the first year."   },
-  { year: "2021", event: "Raised Series A. Expanded to 15 cities across the country."    },
-  { year: "2023", event: "Hit 1 million riders. Launched Ryder Pro for premium rides."   },
-  { year: "2025", event: "30+ cities, 50,000+ verified drivers and still accelerating."  },
-];
-
-const trustPoints = [
-  "Full driver background verification",
-  "Live GPS tracking shared with loved ones",
-  "24/7 customer support via chat and call",
-];
-
-// ── Reusable tiny components ──────────────────────────────────────
-
-// Section label in yellow
-function Label({ children }) {
-  return (
-    <p className="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-2">
-      {children}
-    </p>
-  );
-}
-
-// ── Main component ────────────────────────────────────────────────
 
 function AboutUs() {
   return (
     <div>
         <Navbar/>
+        
         <div className="min-h-screen bg-white text-zinc-900 font-sans antialiased">
 
-        {/* ── HERO ────────────────────────────────────────────────── */}
-        <section className="bg-zinc-900 px-6 md:px-12 py-28 text-center">
+        {/* ════════════════════════════════════════
+            HERO SECTION
+        ════════════════════════════════════════ */}
+        <section className="bg-zinc-900 px-6 md:px-16 py-28 text-center">
+
+            {/* Yellow pill badge */}
             <span className="inline-block bg-yellow-400 text-zinc-900 text-xs font-extrabold px-4 py-1 rounded-full uppercase tracking-widest mb-6">
             Who We Are
             </span>
+
+            {/* Main heading */}
             <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
             Rides That <span className="text-yellow-400">Move</span> You
             </h1>
+
+            {/* Subtext */}
             <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
             Ryder started with one belief — getting from A to B should be safe,
             fast, and affordable for everyone. We are building the ride hailing
             platform that drivers and riders actually love.
             </p>
+
+            {/* Two CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#" className="bg-yellow-400 text-zinc-900 font-bold px-8 py-3 rounded-full hover:bg-yellow-300 transition-colors">
-                Book a Ride
-            </a>
-            <a href="#" className="border border-zinc-600 text-white font-bold px-8 py-3 rounded-full hover:border-yellow-400 hover:text-yellow-400 transition-colors">
+            <Link
+                to='/ride-booking'
+                className="flex items-center justify-center gap-2 bg-yellow-400 text-zinc-900 font-bold px-8 py-3 rounded-full hover:bg-yellow-300 transition-colors"
+            >
+                Book a Ride <FaArrowRight size={12} />
+            </Link>
+            <Link
+                to='/drive'
+                className="border border-zinc-600 text-white font-bold px-8 py-3 rounded-full hover:border-yellow-400 hover:text-yellow-400 transition-colors"
+            >
                 Drive with Us
-            </a>
+            </Link>
             </div>
         </section>
 
-        {/* ── STATS BAR ───────────────────────────────────────────── */}
-        <section className="bg-yellow-400 py-10 px-6 md:px-12">
+        {/* ════════════════════════════════════════
+            STATS BAR — yellow background
+        ════════════════════════════════════════ */}
+        <section className="bg-yellow-400 py-10 px-6 md:px-16">
             <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {stats.map(({ icon: Icon, value, label }) => (
-                <div key={label}>
+
+            <div>
                 <div className="flex justify-center mb-2">
-                    <Icon className="text-zinc-900" size={22} />
+                <FaUsers className="text-zinc-900" size={22} />
                 </div>
-                <p className="text-4xl font-extrabold text-zinc-900">{value}</p>
-                <p className="text-zinc-700 text-sm font-semibold mt-1">{label}</p>
+                <p className="text-4xl font-extrabold text-zinc-900">2M+</p>
+                <p className="text-zinc-700 text-sm font-semibold mt-1">Happy Riders</p>
+            </div>
+
+            <div>
+                <div className="flex justify-center mb-2">
+                <FaCar className="text-zinc-900" size={22} />
                 </div>
-            ))}
+                <p className="text-4xl font-extrabold text-zinc-900">50K+</p>
+                <p className="text-zinc-700 text-sm font-semibold mt-1">Active Drivers</p>
+            </div>
+
+            <div>
+                <div className="flex justify-center mb-2">
+                <FaRoad className="text-zinc-900" size={22} />
+                </div>
+                <p className="text-4xl font-extrabold text-zinc-900">10M+</p>
+                <p className="text-zinc-700 text-sm font-semibold mt-1">Trips Completed</p>
+            </div>
+
+            <div>
+                <div className="flex justify-center mb-2">
+                <FaGlobe className="text-zinc-900" size={22} />
+                </div>
+                <p className="text-4xl font-extrabold text-zinc-900">30+</p>
+                <p className="text-zinc-700 text-sm font-semibold mt-1">Cities Covered</p>
+            </div>
+
             </div>
         </section>
 
-        {/* ── MISSION ─────────────────────────────────────────────── */}
-        <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto">
+        {/* ════════════════════════════════════════
+            MISSION SECTION — 2 columns
+        ════════════════════════════════════════ */}
+        <section className="py-24 px-6 md:px-16 max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row gap-14 items-center">
 
-            {/* Photo */}
+            {/* Left — photo */}
             <div className="w-full md:w-1/2">
                 <img
-                src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=700&q=80"
-                alt="Ryder driver"
+                src={groupimg}
+                alt="Ryder driver smiling"
                 className="rounded-3xl w-full h-80 md:h-[420px] object-cover"
                 />
             </div>
 
-            {/* Text */}
+            {/* Right — text */}
             <div className="w-full md:w-1/2">
-                <Label>Our Mission</Label>
+                <p className="text-yellow-500 text-xs font-extrabold uppercase tracking-widest mb-3">
+                Our Mission
+                </p>
                 <h2 className="text-4xl font-extrabold leading-snug mb-5">
                 Connecting people,<br />one ride at a time.
                 </h2>
@@ -131,117 +126,169 @@ function AboutUs() {
                 We also empower drivers to earn on their own terms — flexible hours,
                 fair pay, and a community that actually has their back.
                 </p>
+
+                {/* Trust checklist */}
                 <ul className="space-y-3">
-                {trustPoints.map((pt) => (
-                    <li key={pt} className="flex items-center gap-3 text-zinc-800 font-medium">
+                <li className="flex items-center gap-3 text-zinc-800 font-medium">
                     <FaCheckCircle className="text-yellow-400 shrink-0" size={16} />
-                    {pt}
-                    </li>
-                ))}
+                    Full driver background verification on every signup
+                </li>
+                <li className="flex items-center gap-3 text-zinc-800 font-medium">
+                    <FaCheckCircle className="text-yellow-400 shrink-0" size={16} />
+                    Live GPS tracking shared with loved ones
+                </li>
+                <li className="flex items-center gap-3 text-zinc-800 font-medium">
+                    <FaCheckCircle className="text-yellow-400 shrink-0" size={16} />
+                    24/7 customer support via chat and call
+                </li>
                 </ul>
             </div>
+
             </div>
         </section>
 
-        {/* ── VALUES ──────────────────────────────────────────────── */}
-        <section className="bg-zinc-900 py-24 px-6 md:px-12">
+
+        <section className="bg-zinc-900 py-24 px-6 md:px-16">
             <div className="max-w-6xl mx-auto">
-            <Label>What Drives Us</Label>
-            <h2 className="text-4xl font-extrabold text-white mb-12">Our Core Values</h2>
+
+            <p className="text-yellow-400 text-xs font-extrabold uppercase tracking-widest mb-2">
+                What Drives Us
+            </p>
+            <h2 className="text-4xl font-extrabold text-white mb-12">
+                Our Core Values
+            </h2>
+
+            {/* 4 value cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {values.map(({ icon: Icon, title, desc }) => (
-                <div
-                    key={title}
-                    className="bg-zinc-800 border border-zinc-700 rounded-2xl p-7 hover:border-yellow-400 transition-colors group"
-                >
-                    <div className="bg-yellow-400 w-11 h-11 rounded-xl flex items-center justify-center mb-5">
-                    <Icon className="text-zinc-900" size={20} />
-                    </div>
-                    <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed">{desc}</p>
-                </div>
-                ))}
-            </div>
-            </div>
-        </section>
 
-        {/* ── TIMELINE ────────────────────────────────────────────── */}
-        <section className="py-24 px-6 md:px-12">
-            <div className="max-w-3xl mx-auto">
-            <Label>Since 2018</Label>
-            <h2 className="text-4xl font-extrabold mb-14">How We Got Here</h2>
-            <div className="relative border-l-2 border-yellow-400 pl-10 space-y-10">
-                {milestones.map(({ year, event }) => (
-                <div key={year} className="relative">
-                    {/* Dot */}
-                    <span className="absolute -left-[45px] top-1.5 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white" />
-                    <span className="text-yellow-500 font-extrabold text-sm">{year}</span>
-                    <p className="text-zinc-500 mt-1 leading-relaxed">{event}</p>
+                {/* Speed */}
+                <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-7 hover:border-yellow-400 transition-colors">
+                <div className="bg-yellow-400 w-11 h-11 rounded-xl flex items-center justify-center mb-5">
+                    <FaBolt className="text-zinc-900" size={20} />
                 </div>
-                ))}
-            </div>
-            </div>
-        </section>
-
-        {/* ── TEAM ────────────────────────────────────────────────── */}
-        <section className="bg-zinc-900 py-24 px-6 md:px-12">
-            <div className="max-w-6xl mx-auto">
-            <Label>The People</Label>
-            <h2 className="text-4xl font-extrabold text-white mb-12">Meet Our Team</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {team.map(({ name, role, initials }) => (
-                <div
-                    key={name}
-                    className="bg-zinc-800 border border-zinc-700 rounded-2xl p-7 text-center hover:border-yellow-400 transition-colors"
-                >
-                    {/* Avatar circle */}
-                    <div className="w-16 h-16 rounded-full bg-yellow-400 flex items-center justify-center mx-auto mb-5">
-                    <span className="text-zinc-900 font-extrabold text-lg">{initials}</span>
-                    </div>
-                    <h3 className="text-white font-bold text-base">{name}</h3>
-                    <p className="text-yellow-400 text-xs font-semibold mt-1 mb-4">{role}</p>
-                    <a
-                    href="#"
-                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-zinc-600 text-zinc-400 hover:border-yellow-400 hover:text-yellow-400 transition-colors"
-                    >
-                    <FaLinkedinIn size={13} />
-                    </a>
-                </div>
-                ))}
-            </div>
-            </div>
-        </section>
-
-        {/* ── APP CTA ─────────────────────────────────────────────── */}
-        <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto">
-            <div className="bg-zinc-900 rounded-3xl p-12 flex flex-col md:flex-row items-center justify-between gap-10">
-            <div>
-                <Label>Download the App</Label>
-                <h2 className="text-4xl font-extrabold text-white mb-4">
-                Your ride is<br />one tap away.
-                </h2>
-                <p className="text-zinc-400 max-w-sm leading-relaxed">
-                Get your first ride completely free. Available on iOS and Android.
+                <h3 className="text-white font-bold text-lg mb-2">Speed</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                    We match you with the nearest driver in under 60 seconds,
+                    every single time without fail.
                 </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                href="#"
-                className="flex items-center gap-3 bg-yellow-400 text-zinc-900 font-bold px-6 py-4 rounded-2xl hover:bg-yellow-300 transition-colors"
-                >
-                <FaMobileAlt size={18} />
-                <span>Download App</span>
-                </a>
-                <a
-                href="#"
-                className="flex items-center gap-3 border border-zinc-600 text-white font-bold px-6 py-4 rounded-2xl hover:border-yellow-400 hover:text-yellow-400 transition-colors"
-                >
-                <FaCar size={18} />
-                <span>Become a Driver</span>
-                </a>
+                </div>
+
+                {/* Safety */}
+                <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-7 hover:border-yellow-400 transition-colors">
+                <div className="bg-yellow-400 w-11 h-11 rounded-xl flex items-center justify-center mb-5">
+                    <FaShieldAlt className="text-zinc-900" size={20} />
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Safety</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                    Every driver is background-verified. Live trip tracking
+                    keeps you and your loved ones secure.
+                </p>
+                </div>
+
+                {/* Quality */}
+                <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-7 hover:border-yellow-400 transition-colors">
+                <div className="bg-yellow-400 w-11 h-11 rounded-xl flex items-center justify-center mb-5">
+                    <FaStar className="text-zinc-900" size={20} />
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Quality</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                    Our 5-star rating system ensures only the best drivers
+                    remain active on the Ryder platform.
+                </p>
+                </div>
+
+                {/* Reach */}
+                <div className="bg-zinc-800 border border-zinc-700 rounded-2xl p-7 hover:border-yellow-400 transition-colors">
+                <div className="bg-yellow-400 w-11 h-11 rounded-xl flex items-center justify-center mb-5">
+                    <FaMapMarkerAlt className="text-zinc-900" size={20} />
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Reach</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">
+                    From city centres to suburbs — Ryder goes wherever
+                    you need to go across 30+ cities.
+                </p>
+                </div>
+
             </div>
             </div>
         </section>
+
+        <section className="py-24 px-6 md:px-16">
+            <div className="max-w-6xl mx-auto">
+
+            <p className="text-yellow-500 text-xs font-extrabold uppercase tracking-widest mb-2">
+                The People
+            </p>
+            <h2 className="text-4xl font-extrabold mb-12">
+                Meet Our Team
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+                {/* Member 1 */}
+                <div className="border border-zinc-200 rounded-2xl p-7 text-center hover:border-yellow-400 transition-colors">
+                <div className="w-16 h-16 rounded-full bg-yellow-400 flex items-center justify-center mx-auto mb-5">
+                    <span className="text-zinc-900 font-extrabold text-lg">MR</span>
+                </div>
+                <h3 className="font-bold text-base text-zinc-900">Marcus Reid</h3>
+                <p className="text-yellow-500 text-xs font-semibold mt-1 mb-4">Founder & CEO</p>
+                <a
+                    href="#"
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-zinc-300 text-zinc-400 hover:border-yellow-400 hover:text-yellow-500 transition-colors"
+                >
+                    <FaLinkedinIn size={13} />
+                </a>
+                </div>
+
+                {/* Member 2 */}
+                <div className="border border-zinc-200 rounded-2xl p-7 text-center hover:border-yellow-400 transition-colors">
+                <div className="w-16 h-16 rounded-full bg-yellow-400 flex items-center justify-center mx-auto mb-5">
+                    <span className="text-zinc-900 font-extrabold text-lg">LH</span>
+                </div>
+                <h3 className="font-bold text-base text-zinc-900">Layla Hassan</h3>
+                <p className="text-yellow-500 text-xs font-semibold mt-1 mb-4">Chief Product Officer</p>
+                <a
+                    href="#"
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-zinc-300 text-zinc-400 hover:border-yellow-400 hover:text-yellow-500 transition-colors"
+                >
+                    <FaLinkedinIn size={13} />
+                </a>
+                </div>
+
+                {/* Member 3 */}
+                <div className="border border-zinc-200 rounded-2xl p-7 text-center hover:border-yellow-400 transition-colors">
+                <div className="w-16 h-16 rounded-full bg-yellow-400 flex items-center justify-center mx-auto mb-5">
+                    <span className="text-zinc-900 font-extrabold text-lg">DP</span>
+                </div>
+                <h3 className="font-bold text-base text-zinc-900">Dev Patel</h3>
+                <p className="text-yellow-500 text-xs font-semibold mt-1 mb-4">Head of Engineering</p>
+                <a
+                    href="#"
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-zinc-300 text-zinc-400 hover:border-yellow-400 hover:text-yellow-500 transition-colors"
+                >
+                    <FaLinkedinIn size={13} />
+                </a>
+                </div>
+
+                {/* Member 4 */}
+                <div className="border border-zinc-200 rounded-2xl p-7 text-center hover:border-yellow-400 transition-colors">
+                <div className="w-16 h-16 rounded-full bg-yellow-400 flex items-center justify-center mx-auto mb-5">
+                    <span className="text-zinc-900 font-extrabold text-lg">CM</span>
+                </div>
+                <h3 className="font-bold text-base text-zinc-900">Chloe Morgan</h3>
+                <p className="text-yellow-500 text-xs font-semibold mt-1 mb-4">Head of Operations</p>
+                <a
+                    href="#"
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-zinc-300 text-zinc-400 hover:border-yellow-400 hover:text-yellow-500 transition-colors"
+                >
+                    <FaLinkedinIn size={13} />
+                </a>
+                </div>
+
+            </div>
+            </div>
+        </section>
+
         </div>
 
         <Footer/>
