@@ -338,58 +338,7 @@ function Home() {
       </div>
 
       {/* review div */}
-      {/* <div className="py-16 px-4 bg-zinc-900 text-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Our Customer Reviews
-        </h2>
-
-        <div className="relative">
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
-            aria-label="Scroll left"
-          >
-            <FaChevronLeft size={14} />
-          </button>
-
-          <div
-            ref={scrollRef}
-            className="flex overflow-x-hidden gap-6 scroll-smooth w-full"
-            style={{ scrollSnapType: "x mandatory" }}
-          >
-            {reviews.map((review, index) => (
-              <div
-                key={index}
-                className="bg-white text-black p-6 rounded-lg transition-transform duration-500 flex flex-col flex-shrink-0 w-[32%] min-h-[190px]"
-                style={{ scrollSnapAlign: "start" }}
-              >
-                
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <FaStar key={i} size={16} className="text-yellow-500" />
-                  ))}
-                </div>
-
-                <p className="mb-4">"{review.review}"</p>
-
-                <p className="font-bold mt-auto">- {review.user_name}</p>
-              </div>
-            ))}
-          </div>
-
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white text-black rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-zinc-100 transition"
-            aria-label="Scroll right"
-          >
-            <FaChevronRight size={14} />
-          </button>
-        </div>
-      </div>
-    </div> */}
-
-    {/* ====== EDITED: review div — made responsive ====== */}
+      
       <div className="py-16 px-4 bg-zinc-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">
@@ -405,7 +354,6 @@ function Home() {
               <FaChevronLeft size={14} />
             </button>
 
-            {/* ✏️ EDIT: card width changed from fixed w-[32%] to w-full on mobile, w-[32%] on md+ */}
             <div
               ref={scrollRef}
               className="flex overflow-x-hidden gap-6 scroll-smooth w-full"
