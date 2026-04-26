@@ -82,9 +82,6 @@ def ride_booking(request):
         pickup_res = requests.get(pickup_url, headers=headers)
         drop_res = requests.get(drop_url, headers=headers)
 
-        # pickup_res = requests.get(pickup_url)
-        # drop_res = requests.get(drop_url)
-
         if pickup_res.status_code == 200:
             ride.pickup_address = pickup_res.json().get("display_name")
 
