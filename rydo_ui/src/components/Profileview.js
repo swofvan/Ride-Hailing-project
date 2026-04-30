@@ -116,11 +116,6 @@ function UserProfile() {
                             History
                         </Link>
                         <Link
-                            className="flex-1 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center gap-2">
-                            <FaEdit />
-                            Edit Profile
-                        </Link>
-                        <Link
                             to="/logout"
                             className="flex-1 text-center bg-red-600 hover:bg-red-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200 flex items-center justify-center gap-2">
                             <FaExternalLinkAlt />                            
