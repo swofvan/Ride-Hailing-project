@@ -24,8 +24,7 @@ function UserProfile() {
         navigate("/login");
         return;
     }
-    
-    // axios.get('http://127.0.0.1:8000/user/profile/', {
+
     axios.get('http://localhost:8000/user/profile/', {
         headers: {
             Authorization: `Bearer ${token}`
