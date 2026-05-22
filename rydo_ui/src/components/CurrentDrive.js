@@ -58,7 +58,7 @@ function CurrentDrive() {
     )
     .then(() => {
       fetchRides();
-      navigate('/')
+      navigate('/drive')
     })
     .catch((error) => {
       console.error(error);

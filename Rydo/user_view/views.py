@@ -50,6 +50,17 @@ def profile_view(request):
 @permission_classes([IsAuthenticated])
 def ride_booking(request):
 
+    active_ride = Ride.objects.filter(
+        user=request.user,
+        status__in=['pending', 'accepted']
+    ).exists()
+
+    if active_ride:
+        return Response(
+            {"error": "You already have an active ride"},
+            status=400
+        )
+
     form = RideForm(request.data)
 
     if form.is_valid():
@@ -156,9 +167,25 @@ def ride_requests(request):
 @permission_classes([IsAuthenticated])
 def accept_ride(request, ride_id):
     try:
-        driver = Driver.objects.get(user=request.user, status='accepted')
+        driver = Driver.objects.get(
+            user=request.user,
+            status='accepted')
+        
     except Driver.DoesNotExist:
-        return Response({"error": "Not an approved driver"}, status=403)
+        return Response(
+            {"error": "Not an approved driver"}, 
+            status=403)
+     
+    active_ride = Ride.objects.filter(              # check if driver already has active ride
+        driver=request.user,
+        status='accepted'
+    ).exists()
+
+    if active_ride:
+        return Response(
+            {"error": "You already have an active ride"},
+            status=400
+        )
 
     try:
         ride = Ride.objects.get(id=ride_id, status='pending', driver__isnull=True)

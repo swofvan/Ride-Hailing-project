@@ -15,6 +15,7 @@ function RideBookingList() {
   const [notDriver, setNotDriver] = useState(false);
 
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -77,6 +78,18 @@ function RideBookingList() {
     })
     .catch((error) => {
       console.error(error);
+
+      if (
+        error.response &&
+        error.response.data.error === "You already have an active ride"
+      ) {
+        setShowError(true);
+
+        setTimeout(() => {
+          setShowError(false);
+        }, 3000);
+      }
+
     });
   }
 
@@ -112,6 +125,18 @@ function RideBookingList() {
             </div>
         </div>
             )}
+
+      {showError && (
+        <div className="fixed top-25 left-0 right-0 flex justify-center z-50">
+          <div className="bg-red-100 border-red-500 border text-red-500 px-6 py-4 rounded-md flex items-center gap-2">
+            <span>
+              <FaCar />
+            </span>
+              Please finish your current ride
+          </div>
+        </div>
+      )}
+
       <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
 
